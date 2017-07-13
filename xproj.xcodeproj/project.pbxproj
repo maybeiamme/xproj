@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		1FFB5E931F172A91002F4A12 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5E921F172A91002F4A12 /* main.swift */; };
 		1FFB5EA01F172B62002F4A12 /* xprojTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5E9F1F172B62002F4A12 /* xprojTests.swift */; };
+		1FFB5EA81F17324E002F4A12 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA61F17324E002F4A12 /* Nimble.framework */; };
+		1FFB5EA91F17324E002F4A12 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA71F17324E002F4A12 /* Quick.framework */; };
+		1FFB5EAC1F1732EB002F4A12 /* ParseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EAB1F1732EB002F4A12 /* ParseSpec.swift */; };
+		1FFB5EDC1F174D83002F4A12 /* stub.pbxproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB5EDB1F174D83002F4A12 /* stub.pbxproj */; };
+		1FFB5EDD1F175C17002F4A12 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5E921F172A91002F4A12 /* main.swift */; };
+		1FFB5EDF1F1786E5002F4A12 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */; };
+		1FFB5EE11F178745002F4A12 /* AnnotationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EE01F178745002F4A12 /* AnnotationSpec.swift */; };
+		1FFB5EE31F1787D5002F4A12 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +37,12 @@
 		1FFB5E9D1F172B62002F4A12 /* xprojTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xprojTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FFB5E9F1F172B62002F4A12 /* xprojTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xprojTests.swift; sourceTree = "<group>"; };
 		1FFB5EA11F172B62002F4A12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FFB5EA61F17324E002F4A12 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
+		1FFB5EA71F17324E002F4A12 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
+		1FFB5EAB1F1732EB002F4A12 /* ParseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseSpec.swift; sourceTree = "<group>"; };
+		1FFB5EDB1F174D83002F4A12 /* stub.pbxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.pbxproject; path = stub.pbxproj; sourceTree = "<group>"; };
+		1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		1FFB5EE01F178745002F4A12 /* AnnotationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FFB5EA81F17324E002F4A12 /* Nimble.framework in Frameworks */,
+				1FFB5EA91F17324E002F4A12 /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +71,7 @@
 				1FFB5E911F172A91002F4A12 /* xproj */,
 				1FFB5E9E1F172B62002F4A12 /* xprojTests */,
 				1FFB5E901F172A91002F4A12 /* Products */,
+				1FFB5EA51F17324E002F4A12 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				1FFB5E921F172A91002F4A12 /* main.swift */,
+				1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */,
 			);
 			path = xproj;
 			sourceTree = "<group>";
@@ -80,8 +98,20 @@
 			children = (
 				1FFB5E9F1F172B62002F4A12 /* xprojTests.swift */,
 				1FFB5EA11F172B62002F4A12 /* Info.plist */,
+				1FFB5EAB1F1732EB002F4A12 /* ParseSpec.swift */,
+				1FFB5EDB1F174D83002F4A12 /* stub.pbxproj */,
+				1FFB5EE01F178745002F4A12 /* AnnotationSpec.swift */,
 			);
 			path = xprojTests;
+			sourceTree = "<group>";
+		};
+		1FFB5EA51F17324E002F4A12 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1FFB5EA61F17324E002F4A12 /* Nimble.framework */,
+				1FFB5EA71F17324E002F4A12 /* Quick.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,6 +141,7 @@
 				1FFB5E991F172B62002F4A12 /* Sources */,
 				1FFB5E9A1F172B62002F4A12 /* Frameworks */,
 				1FFB5E9B1F172B62002F4A12 /* Resources */,
+				1FFB5EAA1F173253002F4A12 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -164,10 +195,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FFB5EDC1F174D83002F4A12 /* stub.pbxproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1FFB5EAA1F173253002F4A12 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/Quick.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Nimble.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1FFB5E8B1F172A91002F4A12 /* Sources */ = {
@@ -175,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FFB5E931F172A91002F4A12 /* main.swift in Sources */,
+				1FFB5EDF1F1786E5002F4A12 /* Annotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FFB5EAC1F1732EB002F4A12 /* ParseSpec.swift in Sources */,
+				1FFB5EE31F1787D5002F4A12 /* Annotation.swift in Sources */,
+				1FFB5EE11F178745002F4A12 /* AnnotationSpec.swift in Sources */,
 				1FFB5EA01F172B62002F4A12 /* xprojTests.swift in Sources */,
+				1FFB5EDD1F175C17002F4A12 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,12 +354,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = xprojTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pguru.xprojTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
+				"TEST_HOST[sdk=*]" = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
 		};
@@ -312,12 +372,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = xprojTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pguru.xprojTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				"TEST_HOST[sdk=*]" = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
 		};
