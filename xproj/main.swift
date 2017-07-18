@@ -79,12 +79,20 @@ public struct Parse {
                     } else {
                         valuestack.append(s)
                     }
-                    
                 }
             }
         }
         
         return newstack.filter{ $0 != "" }
+    }
+    
+    static func semicolonDelemeter( string : String ) -> Array<String> {
+        let filter: Set<Character> = Set( "\t\n".characters )
+        let result = String(string.characters.filter{ filter.contains($0) == false })
+//
+//        return newstack.filter{ $0 != "" }
+        
+        return result.components(separatedBy: ";" )
     }
     
     static func parse( string : String ) -> Any? {

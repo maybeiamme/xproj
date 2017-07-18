@@ -51,14 +51,25 @@ class ParseSpec: QuickSpec {
 ////                print( "matches : [\(Parse.parseAnnotations(string: string!) )] " )
 //            }
 //        }
+//        
+//        describe("Parse simple dictionary") {
+//            it("check parse") {
+//                
+//                let path = Bundle(for: ParseSpec.self).path(forResource: "stub", ofType: "pbxproj")
+//                let string = try? String(contentsOfFile: path!, encoding: .utf8)
+//
+//                print( Parse.generateParsable(string: string!))
+//            }
+//        }
         
-        describe("Parse simple dictionary") {
+        
+        describe("Semicolon delemeter") {
             it("check parse") {
                 
                 let path = Bundle(for: ParseSpec.self).path(forResource: "stub", ofType: "pbxproj")
                 let string = try? String(contentsOfFile: path!, encoding: .utf8)
-
-                print( Parse.generateParsable(string: string!))
+                
+                print( Parse.semicolonDelemeter(string: string!))
             }
         }
     }
