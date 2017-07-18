@@ -15,10 +15,7 @@ class AnnotationSpec: QuickSpec {
     override func spec() {
         describe("Regex verification") {
             it("simple check") {
-//                let matches = AnnotationParser.parseAnnotations(string: "/* Begin PBXBuildFile section */")
-                let matches = AnnotationParser.parseAnnotations(string: " Begin ")
-                
-                expect( matches!.count ).to( equal( 1 ) )
+
             }
             
             it("check is operator : {") {

@@ -36,21 +36,21 @@ class ParseSpec: QuickSpec {
 
         }
         
-        describe("Parse all annotations") {
-            it("parse all annotation test") {
-                
-                let path = Bundle(for: ParseSpec.self).path(forResource: "stub", ofType: "pbxproj")
-                let string = try? String(contentsOfFile: path!, encoding: .utf8)
-                
-                let matches = Parse.parseAnnotations(string: string!)
-                matches?.forEach{ match in
-                    let s = string as! NSString
-                    print( "matches : [\(s.substring(with: match.range))]" )
-                }
-                print( "matches count : [\(matches?.count)]")
-//                print( "matches : [\(Parse.parseAnnotations(string: string!) )] " )
-            }
-        }
+//        describe("Parse all annotations") {
+//            it("parse all annotation test") {
+//                
+//                let path = Bundle(for: ParseSpec.self).path(forResource: "stub", ofType: "pbxproj")
+//                let string = try? String(contentsOfFile: path!, encoding: .utf8)
+//                
+//                let matches = Parse.parseAnnotations(string: string!)
+//                matches?.forEach{ match in
+//                    let s = string as! NSString
+//                    print( "matches : [\(s.substring(with: match.range))]" )
+//                }
+//                print( "matches count : [\(matches?.count)]")
+////                print( "matches : [\(Parse.parseAnnotations(string: string!) )] " )
+//            }
+//        }
         
         describe("Parse simple dictionary") {
             it("check parse") {
@@ -58,7 +58,7 @@ class ParseSpec: QuickSpec {
                 let path = Bundle(for: ParseSpec.self).path(forResource: "stub", ofType: "pbxproj")
                 let string = try? String(contentsOfFile: path!, encoding: .utf8)
 
-//                print( Parse.generateParsable(string: string!))
+                print( Parse.generateParsable(string: string!))
             }
         }
     }

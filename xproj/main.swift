@@ -70,7 +70,16 @@ public struct Parse {
                 if valuestack.isEmpty == true && s == " " {
                     
                 } else {
-                    valuestack.append(s)
+                    if s == "/" && valuestack.isEmpty == false && valuestack.last == "*" {
+                        valuestack.append(s)
+                        if let generated = AnnotationParser.generateDataFromAnnotation(value: valuestack) {
+                            generated.forEach{ newstack.append($0) }
+                            valuestack = Array<String>()
+                        }
+                    } else {
+                        valuestack.append(s)
+                    }
+                    
                 }
             }
         }

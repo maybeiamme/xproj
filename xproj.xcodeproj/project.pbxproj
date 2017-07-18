@@ -9,14 +9,14 @@
 /* Begin PBXBuildFile section */
 		1FFB5E931F172A91002F4A12 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5E921F172A91002F4A12 /* main.swift */; };
 		1FFB5EA01F172B62002F4A12 /* xprojTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5E9F1F172B62002F4A12 /* xprojTests.swift */; };
-		1FFB5EA81F17324E002F4A12 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA61F17324E002F4A12 /* Nimble.framework */; };
-		1FFB5EA91F17324E002F4A12 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA71F17324E002F4A12 /* Quick.framework */; };
 		1FFB5EAC1F1732EB002F4A12 /* ParseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EAB1F1732EB002F4A12 /* ParseSpec.swift */; };
 		1FFB5EDC1F174D83002F4A12 /* stub.pbxproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB5EDB1F174D83002F4A12 /* stub.pbxproj */; };
 		1FFB5EDD1F175C17002F4A12 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5E921F172A91002F4A12 /* main.swift */; };
 		1FFB5EDF1F1786E5002F4A12 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */; };
 		1FFB5EE11F178745002F4A12 /* AnnotationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EE01F178745002F4A12 /* AnnotationSpec.swift */; };
 		1FFB5EE31F1787D5002F4A12 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */; };
+		41EF80961F17F92C004CD3CE /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA61F17324E002F4A12 /* Nimble.framework */; };
+		41EF80971F17F92C004CD3CE /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA71F17324E002F4A12 /* Quick.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,8 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FFB5EA81F17324E002F4A12 /* Nimble.framework in Frameworks */,
-				1FFB5EA91F17324E002F4A12 /* Quick.framework in Frameworks */,
+				41EF80961F17F92C004CD3CE /* Nimble.framework in Frameworks */,
+				41EF80971F17F92C004CD3CE /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +405,7 @@
 				1FFB5E981F172A91002F4A12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1FFB5EA21F172B62002F4A12 /* Build configuration list for PBXNativeTarget "xprojTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +414,7 @@
 				1FFB5EA41F172B62002F4A12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
