@@ -46,9 +46,11 @@ public struct Parse {
     }
     
     static func parseAnnotations( string : String ) -> [NSTextCheckingResult]? {
-        let regex = try? NSRegularExpression(pattern: "\\/\\* Begin [a-zA-Z]{1,} section \\/\\*", options: NSRegularExpression.Options.useUnixLineSeparators)
-        
-        let matches = regex?.matches(in: string, options: NSRegularExpression.MatchingOptions.anchored, range: NSRange(location: 0, length: string.characters.count) )
+        let pattern = "(\\/\\* )(Begin)([ ]{1})([A-z]{1,})( section \\*\\/)"
+//        let pattern = "/(Begin)/"
+        let regex = try? NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.useUnixLineSeparators)
+        print( regex )
+        let matches = regex?.matches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count) )
         return matches
     }
     
