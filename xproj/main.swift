@@ -49,7 +49,6 @@ public struct Parse {
         let pattern = "(\\/\\* )(Begin)([ ]{1})([A-z]{1,})( section \\*\\/)"
 //        let pattern = "/(Begin)/"
         let regex = try? NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.useUnixLineSeparators)
-        print( regex )
         let matches = regex?.matches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count) )
         return matches
     }

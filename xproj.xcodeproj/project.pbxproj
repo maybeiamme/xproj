@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F00FCF91F273E7F00BB50C0 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */; };
+		1F00FCFB1F27407000BB50C0 /* PBXBuildFilecontainerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F00FCFA1F27407000BB50C0 /* PBXBuildFilecontainerSpec.swift */; };
+		1F00FCFD1F2740B700BB50C0 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */; };
+		1FBDA98F1F274CD200F4038B /* PBXBuildFileSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDA98E1F274CD200F4038B /* PBXBuildFileSpec.swift */; };
 		1FFB5E931F172A91002F4A12 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5E921F172A91002F4A12 /* main.swift */; };
-		1FFB5EA01F172B62002F4A12 /* xprojTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5E9F1F172B62002F4A12 /* xprojTests.swift */; };
 		1FFB5EAC1F1732EB002F4A12 /* ParseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EAB1F1732EB002F4A12 /* ParseSpec.swift */; };
 		1FFB5EDC1F174D83002F4A12 /* stub.pbxproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB5EDB1F174D83002F4A12 /* stub.pbxproj */; };
 		1FFB5EDD1F175C17002F4A12 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5E921F172A91002F4A12 /* main.swift */; };
 		1FFB5EDF1F1786E5002F4A12 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */; };
 		1FFB5EE11F178745002F4A12 /* AnnotationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EE01F178745002F4A12 /* AnnotationSpec.swift */; };
+		1FFB5EE11F178745002F4A1F /* 1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EE01F178745002F4A1F /* 1.swift */; };
 		1FFB5EE31F1787D5002F4A12 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */; };
 		41EF80961F17F92C004CD3CE /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA61F17324E002F4A12 /* Nimble.framework */; };
 		41EF80971F17F92C004CD3CE /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA71F17324E002F4A12 /* Quick.framework */; };
@@ -32,10 +36,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
+		1F00FCFA1F27407000BB50C0 /* PBXBuildFilecontainerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXBuildFilecontainerSpec.swift; sourceTree = "<group>"; };
+		1FBDA98E1F274CD200F4038B /* PBXBuildFileSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXBuildFileSpec.swift; sourceTree = "<group>"; };
 		1FFB5E8F1F172A91002F4A12 /* xproj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = xproj; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FFB5E921F172A91002F4A12 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		1FFB5E9D1F172B62002F4A12 /* xprojTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xprojTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FFB5E9F1F172B62002F4A12 /* xprojTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xprojTests.swift; sourceTree = "<group>"; };
 		1FFB5EA11F172B62002F4A12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FFB5EA61F17324E002F4A12 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
 		1FFB5EA71F17324E002F4A12 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
@@ -43,6 +49,7 @@
 		1FFB5EDB1F174D83002F4A12 /* stub.pbxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.pbxproject; path = stub.pbxproj; sourceTree = "<group>"; };
 		1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		1FFB5EE01F178745002F4A12 /* AnnotationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationSpec.swift; sourceTree = "<group>"; };
+		1FFB5EE01F178745002F4A1F /* 1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +96,7 @@
 			children = (
 				1FFB5E921F172A91002F4A12 /* main.swift */,
 				1FFB5EDE1F1786E5002F4A12 /* Annotation.swift */,
+				1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */,
 			);
 			path = xproj;
 			sourceTree = "<group>";
@@ -96,11 +104,13 @@
 		1FFB5E9E1F172B62002F4A12 /* xprojTests */ = {
 			isa = PBXGroup;
 			children = (
-				1FFB5E9F1F172B62002F4A12 /* xprojTests.swift */,
 				1FFB5EA11F172B62002F4A12 /* Info.plist */,
 				1FFB5EAB1F1732EB002F4A12 /* ParseSpec.swift */,
 				1FFB5EDB1F174D83002F4A12 /* stub.pbxproj */,
 				1FFB5EE01F178745002F4A12 /* AnnotationSpec.swift */,
+				1FFB5EE01F178745002F4A1F /* 1.swift */,
+				1F00FCFA1F27407000BB50C0 /* PBXBuildFilecontainerSpec.swift */,
+				1FBDA98E1F274CD200F4038B /* PBXBuildFileSpec.swift */,
 			);
 			path = xprojTests;
 			sourceTree = "<group>";
@@ -225,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FFB5E931F172A91002F4A12 /* main.swift in Sources */,
+				1F00FCF91F273E7F00BB50C0 /* PBXBuildFile.swift in Sources */,
 				1FFB5EDF1F1786E5002F4A12 /* Annotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,8 +247,11 @@
 				1FFB5EAC1F1732EB002F4A12 /* ParseSpec.swift in Sources */,
 				1FFB5EE31F1787D5002F4A12 /* Annotation.swift in Sources */,
 				1FFB5EE11F178745002F4A12 /* AnnotationSpec.swift in Sources */,
-				1FFB5EA01F172B62002F4A12 /* xprojTests.swift in Sources */,
+				1F00FCFB1F27407000BB50C0 /* PBXBuildFilecontainerSpec.swift in Sources */,
 				1FFB5EDD1F175C17002F4A12 /* main.swift in Sources */,
+				1FFB5EE11F178745002F4A1F /* 1.swift in Sources */,
+				1FBDA98F1F274CD200F4038B /* PBXBuildFileSpec.swift in Sources */,
+				1F00FCFD1F2740B700BB50C0 /* PBXBuildFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
