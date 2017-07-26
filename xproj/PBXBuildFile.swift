@@ -21,37 +21,40 @@ internal struct PBXBuildFileContainer {
             return nil
         }
     }
+    
+    internal var items: Array<PBXBuildFile>
+    
+    init( string: String ) throws {
+        guard let parsed = PBXBuildFileContainer.parse(string: string) else { throw ParseError.brokenSyntax }
+        items = try parsed.flatMap{ try PBXBuildFile.parse(string: $0 ) }
+    }
 }
 
-enum Status {
-    case key
-    case value
-    case openDictionary
-    case closeDictionary
-}
-
-internal struct PBXBuildFile {
-    internal static func parse( string: String? ) -> PBXBuildFile? {
+internal struct PBXBuildFile: AutoEquatable {
+    internal static func parse( string: String? ) throws -> PBXBuildFile? {
+        let parser = Parser()
         guard let string = string else { return nil }
-        guard let annotationRemoved = PBXBuildFile.removeAnnotation(string: string) else { return nil }
-        let spaceRemoved = String( annotationRemoved.characters.filter{ $0 != " " } )
-        let readyToParse = "{" + spaceRemoved + "}"
-
+        let readyToParse = "{" + Parser.clear(string: string) + "};"
+        let result = try parser.start(string: readyToParse)
         
-        return nil
+        guard let dictionary = result as? Dictionary<String,Any>,
+            let uuid = dictionary.keys.first,
+            let content = dictionary[uuid] as? Dictionary<String,Any>,
+            let fileRef = content["fileRef"] as? String else { throw ParseError.brokenSyntax }
+        
+        let component = PBXBuildFile(uuid: uuid, fileRef: fileRef)
+        return component
+    }
+    
+    init( uuid: String, fileRef: String ) {
+        self.uuid = uuid
+        self.fileRef = fileRef
     }
 
-    internal static func removeAnnotation( string: String ) -> String? {
-        do {
-            let regex = try NSRegularExpression(pattern: "\\/\\*([^*]|[\\r\\n]|(\\*+([^*/]|[\\r\\n])))*\\*+\\/", options: NSRegularExpression.Options.caseInsensitive)
-            return regex.stringByReplacingMatches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count), withTemplate: "")
-        } catch {
-            print( error )
-            return nil
-        }
-    }
+
     
     let uuid: String
     let isa = "PBXBuildFile"
     let fileRef: String
 }
+
