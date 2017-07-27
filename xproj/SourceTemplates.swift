@@ -56,6 +56,21 @@ internal func == (lhs: PBXGroup, rhs: PBXGroup) -> Bool {
     guard compareOptionals(lhs: lhs.path, rhs: rhs.path, compare: ==) else { return false }
     return true
 }
+// MARK: - PBXNativeTarget AutoEquatable
+extension PBXNativeTarget: Equatable {}
+internal func == (lhs: PBXNativeTarget, rhs: PBXNativeTarget) -> Bool {
+    guard lhs.uuid == rhs.uuid else { return false }
+    guard lhs.isa == rhs.isa else { return false }
+    guard compareOptionals(lhs: lhs.buildConfigurationList, rhs: rhs.buildConfigurationList, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.buildPhases, rhs: rhs.buildPhases, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.buildRules, rhs: rhs.buildRules, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.dependencies, rhs: rhs.dependencies, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.name, rhs: rhs.name, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.productName, rhs: rhs.productName, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.productReference, rhs: rhs.productReference, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.productType, rhs: rhs.productType, compare: ==) else { return false }
+    return true
+}
 
 // MARK: - AutoEquatable for Enums
 

@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		1F00FCF91F273E7F00BB50C0 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */; };
 		1F00FCFD1F2740B700BB50C0 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */; };
+		1F9F83901F29F99900FF642C /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F838F1F29F99900FF642C /* PBXNativeTarget.swift */; };
+		1F9F83921F29FB1500FF642C /* PBXNativeTargetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83911F29FB1500FF642C /* PBXNativeTargetSpec.swift */; };
+		1F9F83931F29FCA400FF642C /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F838F1F29F99900FF642C /* PBXNativeTarget.swift */; };
+		1F9F83961F29FD0600FF642C /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83951F29FD0600FF642C /* Entity.swift */; };
+		1F9F83981F29FD4500FF642C /* PBXContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83971F29FD4500FF642C /* PBXContainer.swift */; };
+		1F9F83991F29FD4A00FF642C /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83951F29FD0600FF642C /* Entity.swift */; };
+		1F9F839A1F29FD5E00FF642C /* PBXContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83971F29FD4500FF642C /* PBXContainer.swift */; };
 		1FBDA98F1F274CD200F4038B /* PBXBuildFileSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDA98E1F274CD200F4038B /* PBXBuildFileSpec.swift */; };
 		1FF02CA61F28850E0066405A /* PBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF02CA51F28850E0066405A /* PBXParser.swift */; };
 		1FF02CA71F28852D0066405A /* PBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF02CA51F28850E0066405A /* PBXParser.swift */; };
@@ -44,6 +51,10 @@
 /* Begin PBXFileReference section */
 		0CD6B21786B9AC434CF38F60 /* libPods-xproj.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xproj.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
+		1F9F838F1F29F99900FF642C /* PBXNativeTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
+		1F9F83911F29FB1500FF642C /* PBXNativeTargetSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXNativeTargetSpec.swift; sourceTree = "<group>"; };
+		1F9F83951F29FD0600FF642C /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		1F9F83971F29FD4500FF642C /* PBXContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXContainer.swift; sourceTree = "<group>"; };
 		1FBDA98E1F274CD200F4038B /* PBXBuildFileSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXBuildFileSpec.swift; sourceTree = "<group>"; };
 		1FF02CA51F28850E0066405A /* PBXParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXParser.swift; sourceTree = "<group>"; };
 		1FF02CA81F2893400066405A /* PBXFileReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFileReference.swift; sourceTree = "<group>"; };
@@ -113,6 +124,9 @@
 				1FF02CA51F28850E0066405A /* PBXParser.swift */,
 				1FF02CA81F2893400066405A /* PBXFileReference.swift */,
 				1FF02CB01F289CA70066405A /* PBXGroup.swift */,
+				1F9F838F1F29F99900FF642C /* PBXNativeTarget.swift */,
+				1F9F83951F29FD0600FF642C /* Entity.swift */,
+				1F9F83971F29FD4500FF642C /* PBXContainer.swift */,
 			);
 			path = xproj;
 			sourceTree = "<group>";
@@ -126,6 +140,7 @@
 				1FBDA98E1F274CD200F4038B /* PBXBuildFileSpec.swift */,
 				1FF02CAE1F289A680066405A /* PBXFileReferenceSpec.swift */,
 				1FF02CB31F289DC30066405A /* PBXGroupSpec.swift */,
+				1F9F83911F29FB1500FF642C /* PBXNativeTargetSpec.swift */,
 			);
 			path = xprojTests;
 			sourceTree = "<group>";
@@ -291,11 +306,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9F83981F29FD4500FF642C /* PBXContainer.swift in Sources */,
 				1FF02CA61F28850E0066405A /* PBXParser.swift in Sources */,
 				1FFB5E931F172A91002F4A12 /* main.swift in Sources */,
 				1FF02CB11F289CA70066405A /* PBXGroup.swift in Sources */,
 				1FF02CA91F2893400066405A /* PBXFileReference.swift in Sources */,
+				1F9F83961F29FD0600FF642C /* Entity.swift in Sources */,
 				1F00FCF91F273E7F00BB50C0 /* PBXBuildFile.swift in Sources */,
+				1F9F83901F29F99900FF642C /* PBXNativeTarget.swift in Sources */,
 				1FF02CAB1F2897960066405A /* SourceTemplates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,14 +322,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9F83931F29FCA400FF642C /* PBXNativeTarget.swift in Sources */,
 				1FFB5EAC1F1732EB002F4A12 /* ParseSpec.swift in Sources */,
+				1F9F839A1F29FD5E00FF642C /* PBXContainer.swift in Sources */,
 				1FF02CAF1F289A680066405A /* PBXFileReferenceSpec.swift in Sources */,
 				1FF02CB21F289DB40066405A /* PBXGroup.swift in Sources */,
 				1FF02CB41F289DC30066405A /* PBXGroupSpec.swift in Sources */,
+				1F9F83921F29FB1500FF642C /* PBXNativeTargetSpec.swift in Sources */,
 				1FFB5EDD1F175C17002F4A12 /* main.swift in Sources */,
 				1FF02CAD1F2899220066405A /* SourceTemplates.swift in Sources */,
 				1FF02CAC1F28991D0066405A /* PBXFileReference.swift in Sources */,
 				1FF02CA71F28852D0066405A /* PBXParser.swift in Sources */,
+				1F9F83991F29FD4A00FF642C /* Entity.swift in Sources */,
 				1FBDA98F1F274CD200F4038B /* PBXBuildFileSpec.swift in Sources */,
 				1F00FCFD1F2740B700BB50C0 /* PBXBuildFile.swift in Sources */,
 			);

@@ -11,105 +11,103 @@ import Cocoa
 protocol AutoEquatable {}
 protocol AutoHashable {}
 
-protocol PBXParserProtocol {
-    func start( string: String ) throws -> NODE
-}
+
 
 struct Parser: PBXParserProtocol {
-    func start( string: String ) throws -> NODE {
+    
+    func start( string: String ) throws -> Dictionary<String,Any> {
+        let cleaned = Parser.clear(string: string)
         var stack = Array<NODE>()
-        for s in string.characters {
-            if s.group == .unknown { throw ParseError.unexpectedNode }
+        var doublequat = false
+        
+        for s in cleaned.characters {
+            if s == "\"" {
+                doublequat = !doublequat
+                
+                if doublequat == true {
+                    var node = STRING()
+                    node.content = String("")
+                    stack.append(node)
+                }
+                continue
+            }
+            if doublequat == true {
+                if var stringNode = stack.last as? STRING {
+                    stringNode.content = (stringNode.content as? String ?? "") + String(s)
+                    let _ = stack.popLast()
+                    stack.append(stringNode)
+                } else {
+                    var node = STRING()
+                    node.content = String("")
+                    stack.append(node)
+                }
+                continue
+            }
+
+            if s.group == .unknown { throw ParseError.unknownNode }
             
             if s.group == .delimiter {
                 if s == "=" {
-                    var key: String = ""
-                    while stack.isEmpty == false && stack.last?.group == .alphanumeric {
-                        if let part = stack.popLast() as? Character {
-                            let frag = String( part )
-                            key += frag
-                        }
-                    }
-                    stack.append(KEY(string: String(key.characters.reversed())))
+                    guard let node = stack.popLast() as? STRING else { throw ParseError.expectedSTRING }
+                    let key = KEY(node: node)
+                    stack.append(key)
+                } else if s == ";" {
+                    guard let value = stack.popLast() else { throw ParseError.expectedNODE }
+                    guard let key = stack.popLast() as? KEY else { throw ParseError.expectedKEY }
+                    let keyvalue = try KEYVALUE(key: key, value: value)
+                    stack.append(keyvalue)
                 } else if s == "," {
-                    var key: String = ""
-                    while stack.isEmpty == false && stack.last?.group == .alphanumeric {
-                        if let part = stack.popLast() as? Character {
-                            let frag = String( part )
-                            key += frag
-                        }
-                    }
-                    stack.append(ELEMENT(value: String(key.characters.reversed())))
-                } else {
-                    stack.append(s)
+                    var node = STRING()
+                    node.content = ""
+                    stack.append(node)
                 }
-            } else if s.group == .alphanumeric {
+            } else if s.group == .start {
                 stack.append(s)
-            } else if s.group == .terminator {
-                if stack.last?.group == .alphanumeric {
-                    var value: String = ""
-                    while stack.isEmpty == false && (stack.last is KEY) == false {
-                        if stack.last?.group != .alphanumeric { throw ParseError.unexpectedNode }
-                        
-                        if let part = stack.popLast() as? Character {
-                            let frag = String( part )
-                            value += frag
+            } else if s.group == .string {
+                if var stringNode = stack.last as? STRING {
+                    stringNode.content = (stringNode.content as? String ?? "") + String(s)
+                    let _ = stack.popLast()
+                    stack.append(stringNode)
+                } else {
+                    var node = STRING()
+                    node.content = String(s)
+                    stack.append(node)
+                }
+            } else if s.group == .closer {
+                if s == "}" {
+                    var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
+                    while (stack.last as? Character) != "{" {
+                        guard let keyvalue = stack.popLast() as? KEYVALUE else { throw ParseError.expectedKEYVALUE }
+                        dictionary[keyvalue.key] = keyvalue.value
+                    }
+                    let _ = stack.popLast()
+                    stack.append(dictionary)
+                } else if s == ")" {
+                    var array: Array<Any> = Array<Any>()
+                    while (stack.last as? Character) != "(" {
+                        guard let node = stack.popLast(), let content = node.content else { throw ParseError.expectedNODE }
+                        if let value = content as? String {
+                            if value.characters.count > 0 {
+                                array.append(value)
+                            }
+                        } else {
+                            array.append(content)
                         }
                     }
-                    let component = VALUE(content: String(value.characters.reversed()))
-                    guard let key = stack.popLast() as? KEY else { throw ParseError.unexpectedNode }
-                    let keyvalue = KEYVALUE(key: key.content, value: component.content)
-                    stack.append(keyvalue)
-                } else if stack.last?.group == .delimiter && (stack.last as? Character) == "}" {
-                    var result = Dictionary<String, Any>()
-                    let _ = stack.popLast() // dispose start
-                    while stack.isEmpty == false && (stack.last as? Character) != "{" {
-                        guard let node = stack.popLast() as? KEYVALUE else { throw ParseError.unexpectedNode }
-                        result[node.key] = node.value
-                    }
-                    let _ = stack.popLast() // dispose end
-                    let component = VALUE(content: result)
-                    if let key = stack.last as? KEY {
-                        let keyvalue = KEYVALUE(key: key.content, value: component.content)
-                        let _ = stack.popLast()
-                        stack.append(keyvalue)
-                    } else {
-                        stack.append(result)
-                    }
-                } else if stack.last?.group == .delimiter && (stack.last as? Character) == ")" {
-                    var array = Array<String>()
-                    let _ = stack.popLast() // dispose start
-                    while stack.isEmpty == false && (stack.last as? Character) != "(" {
-                        guard let node = stack.popLast() as? ELEMENT else { throw ParseError.unexpectedNode }
-                        array.append(node.value)
-                    }
-                    let _ = stack.popLast() // dispose end
-                    let component = VALUE(content: array.reversed() as Array<String> )
-                    guard let key = stack.popLast() as? KEY else { throw ParseError.unexpectedNode }
-                    let keyvalue = KEYVALUE(key: key.content, value: component.content)
-                    stack.append(keyvalue)
+                    let _ = stack.popLast()
+                    stack.append(array)
                 }
             }
         }
-        if let last = stack.last as? VALUE, let content = last.content as? Dictionary<String,Any> { return content }
-        guard let anytype = stack.last else { throw ParseError.unexpectedNode }
-        return anytype
-    }
-    
-    static func isAcceptedDelimiters( value: Character ) -> Bool {
-        return String( value ).rangeOfCharacter(from: CharacterSet(charactersIn: "{}=(),")) != nil ? true : false
-    }
-    
-    static func isAlphaNumeric( value: Character ) -> Bool {
-        var alphanumericSet = CharacterSet.alphanumerics
-        alphanumericSet.insert(charactersIn:".")
         
-        return String( value ).rangeOfCharacter(from: CharacterSet(charactersIn: "{}=();,").inverted) != nil ? true : false
+        guard let last = stack.last as? Dictionary<String,Any> else { throw ParseError.brokenSyntax }
+        return last
     }
     
     static func clear( string: String ) -> String {
         guard let annotationRemoved = Parser.removeAnnotation(string: string) else { return "" }
-        let cleanString = String( annotationRemoved.characters.filter{ $0 != " " && $0 != "\t" && $0 != "\n" } )
+        guard let removeCommentedOut = Parser.removeCommentedOut(string: annotationRemoved) else { return "" }
+        let cleanString = String( removeCommentedOut.characters.filter{ $0 != " " && $0 != "\t" && $0 != "\n" } )
         return cleanString
     }
     
@@ -122,73 +120,14 @@ struct Parser: PBXParserProtocol {
             return nil
         }
     }
-}
-
-struct ELEMENT: NODE {
-    var value: String
-    var group: GROUP { return .component }
-}
-
-struct ARRAY: NODE {
-    var elements: Array<String>
-    var group: GROUP { return .component }
-}
-
-struct KEYVALUE: NODE {
-    var key: String
-    var value: Any
-    var group: GROUP { return .component }
-}
-
-struct KEY: NODE {
-    var content: String
-    init( string: String ) {
-        content = string
-    }
-    var group: GROUP { return .component }
-}
-
-struct VALUE: NODE {
-    var content: Any
-    var group: GROUP { return .component }
     
-    init( content: Any ) {
-        self.content = content
-    }
-}
-
-enum ParseError: Error {
-    case unexpectedNode
-    case brokenSyntax
-}
-
-enum GROUP {
-    case delimiter
-    case alphanumeric
-    case component
-    case dictionary
-    case array
-    case terminator
-    case unknown
-}
-
-protocol NODE {
-    var group: GROUP { get }
-}
-
-extension Dictionary: NODE {
-    var group: GROUP { return .dictionary }
-}
-
-extension Array: NODE {
-    var group: GROUP { return .array }
-}
-
-extension Character: NODE {
-    var group: GROUP {
-        if Parser.isAlphaNumeric(value: self) == true { return .alphanumeric }
-        else if self == ";" { return .terminator }
-        else if Parser.isAcceptedDelimiters(value: self) == true { return .delimiter }
-        else { return .unknown }
+    internal static func removeCommentedOut( string: String ) -> String? {
+        do {
+            let regex = try NSRegularExpression(pattern: "\\/\\/.*", options: NSRegularExpression.Options.caseInsensitive)
+            return regex.stringByReplacingMatches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count), withTemplate: "")
+        } catch {
+            print( error )
+            return nil
+        }
     }
 }
