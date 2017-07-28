@@ -3,5 +3,6 @@ sources:
 templates:
   - xproj/Template/AutoEquatable.stencil
   - xproj/Template/AutoHashable.stencil
+  - xproj/Template/PBXType.stencil
 output:
   xproj/SourceTemplates.swift

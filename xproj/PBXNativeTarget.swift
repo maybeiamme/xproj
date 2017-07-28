@@ -38,5 +38,6 @@ internal struct PBXNativeTarget: AutoEquatable, PBXType {
     let productName: String?
     let productReference: String?
     let productType: String?
+    
 }
 

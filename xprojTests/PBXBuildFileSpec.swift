@@ -17,7 +17,7 @@ class PBXBuildFileSpec: QuickSpec {
             it("Full parse test") {
                 let path = Bundle(for: ParseSpec.self).path(forResource: "stub", ofType: "pbxproj")
                 let string = try? String(contentsOfFile: path!, encoding: .utf8)
-                let dictionary = try! Parser().start(string: string!)["objects"] as! Dictionary<String,Any>
+                let dictionary = try! Parser().start(string: string!).dictionary["objects"] as! PBXCollection
                 
                 let container = try! Container<PBXBuildFile>(data: dictionary)
                 expect(container.items.count).to(equal(9))
@@ -25,7 +25,7 @@ class PBXBuildFileSpec: QuickSpec {
                 
                 let stub = "{isa = PBXBuildFile; fileRef = 1FFB5EB91F173360002F4A12 /* AppDelegate.swift */; }"
                 let comparable = try! Parser().start(string: stub)
-                let component = try! PBXBuildFile(uuid: "1FFB5EBA1F173360002F4A12", data: comparable)
+                let component = try! PBXBuildFile(uuid: "1FFB5EBA1F173360002F4A12", data: comparable.dictionary)
                 expect(pbxfile).to(equal(component))
             }
         }

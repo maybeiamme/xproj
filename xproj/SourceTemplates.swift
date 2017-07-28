@@ -30,7 +30,7 @@ extension PBXBuildFile: Equatable {}
 internal func == (lhs: PBXBuildFile, rhs: PBXBuildFile) -> Bool {
     guard lhs.uuid == rhs.uuid else { return false }
     guard lhs.isa == rhs.isa else { return false }
-    guard lhs.fileRef == rhs.fileRef else { return false }
+    guard compareOptionals(lhs: lhs.fileRef, rhs: rhs.fileRef, compare: ==) else { return false }
     return true
 }
 // MARK: - PBXFileReference AutoEquatable
@@ -97,3 +97,121 @@ fileprivate func combineHashValues(_ initial: Int, _ other: Int) -> Int {
 // MARK: - AutoHashable for classes, protocols, structs
 
 // MARK: - AutoHashable for Enums
+
+// swiftlint:disable file_length
+// MARK: - PBXBuildFile PBXType
+extension PBXBuildFile {
+    func returnKeyvalue() throws -> KEYVALUE {
+        let key = KEY(node: STRING(content: uuid))
+        var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
+        var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
+
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        if let fileRef = fileRef {
+            allvalues.append( try KEYVALUE(key: STRING(content: "fileRef"), value: STRING(content: fileRef)) )
+            dictionary["fileRef"] = fileRef
+        }
+        return try KEYVALUE(key: key, value: PBXCollection(array: allvalues, dictionary: dictionary) )
+    }
+}
+// MARK: - PBXFileReference PBXType
+extension PBXFileReference {
+    func returnKeyvalue() throws -> KEYVALUE {
+        let key = KEY(node: STRING(content: uuid))
+        var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
+        var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
+
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        if let explicitFileType = explicitFileType {
+            allvalues.append( try KEYVALUE(key: STRING(content: "explicitFileType"), value: STRING(content: explicitFileType)) )
+            dictionary["explicitFileType"] = explicitFileType
+        }
+        if let includeInIndex = includeInIndex {
+            allvalues.append( try KEYVALUE(key: STRING(content: "includeInIndex"), value: STRING(content: includeInIndex)) )
+            dictionary["includeInIndex"] = includeInIndex
+        }
+        if let path = path {
+            allvalues.append( try KEYVALUE(key: STRING(content: "path"), value: STRING(content: path)) )
+            dictionary["path"] = path
+        }
+        if let sourceTree = sourceTree {
+            allvalues.append( try KEYVALUE(key: STRING(content: "sourceTree"), value: STRING(content: sourceTree)) )
+            dictionary["sourceTree"] = sourceTree
+        }
+        if let name = name {
+            allvalues.append( try KEYVALUE(key: STRING(content: "name"), value: STRING(content: name)) )
+            dictionary["name"] = name
+        }
+        return try KEYVALUE(key: key, value: PBXCollection(array: allvalues, dictionary: dictionary) )
+    }
+}
+// MARK: - PBXGroup PBXType
+extension PBXGroup {
+    func returnKeyvalue() throws -> KEYVALUE {
+        let key = KEY(node: STRING(content: uuid))
+        var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
+        var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
+
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        if let children = children {
+            allvalues.append( try KEYVALUE(key: STRING(content: "children"), value: children) )
+            dictionary["children"] = children
+        }
+        if let name = name {
+            allvalues.append( try KEYVALUE(key: STRING(content: "name"), value: STRING(content: name)) )
+            dictionary["name"] = name
+        }
+        if let sourceTree = sourceTree {
+            allvalues.append( try KEYVALUE(key: STRING(content: "sourceTree"), value: STRING(content: sourceTree)) )
+            dictionary["sourceTree"] = sourceTree
+        }
+        if let path = path {
+            allvalues.append( try KEYVALUE(key: STRING(content: "path"), value: STRING(content: path)) )
+            dictionary["path"] = path
+        }
+        return try KEYVALUE(key: key, value: PBXCollection(array: allvalues, dictionary: dictionary) )
+    }
+}
+// MARK: - PBXNativeTarget PBXType
+extension PBXNativeTarget {
+    func returnKeyvalue() throws -> KEYVALUE {
+        let key = KEY(node: STRING(content: uuid))
+        var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
+        var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
+
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        if let buildConfigurationList = buildConfigurationList {
+            allvalues.append( try KEYVALUE(key: STRING(content: "buildConfigurationList"), value: STRING(content: buildConfigurationList)) )
+            dictionary["buildConfigurationList"] = buildConfigurationList
+        }
+        if let buildPhases = buildPhases {
+            allvalues.append( try KEYVALUE(key: STRING(content: "buildPhases"), value: buildPhases) )
+            dictionary["buildPhases"] = buildPhases
+        }
+        if let buildRules = buildRules {
+            allvalues.append( try KEYVALUE(key: STRING(content: "buildRules"), value: buildRules) )
+            dictionary["buildRules"] = buildRules
+        }
+        if let dependencies = dependencies {
+            allvalues.append( try KEYVALUE(key: STRING(content: "dependencies"), value: dependencies) )
+            dictionary["dependencies"] = dependencies
+        }
+        if let name = name {
+            allvalues.append( try KEYVALUE(key: STRING(content: "name"), value: STRING(content: name)) )
+            dictionary["name"] = name
+        }
+        if let productName = productName {
+            allvalues.append( try KEYVALUE(key: STRING(content: "productName"), value: STRING(content: productName)) )
+            dictionary["productName"] = productName
+        }
+        if let productReference = productReference {
+            allvalues.append( try KEYVALUE(key: STRING(content: "productReference"), value: STRING(content: productReference)) )
+            dictionary["productReference"] = productReference
+        }
+        if let productType = productType {
+            allvalues.append( try KEYVALUE(key: STRING(content: "productType"), value: STRING(content: productType)) )
+            dictionary["productType"] = productType
+        }
+        return try KEYVALUE(key: key, value: PBXCollection(array: allvalues, dictionary: dictionary) )
+    }
+}

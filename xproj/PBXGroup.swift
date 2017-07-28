@@ -8,20 +8,6 @@
 
 import Cocoa
 
-//internal struct PBXGroupContainer {
-//    internal var items: Dictionary<String,PBXGroup>
-//    
-//    init( data: Dictionary<String,Any> ) throws {
-//        var dictionary: Dictionary<String,PBXGroup> = Dictionary<String,PBXGroup>()
-//        for (key, value) in data {
-//            if let info = value as? Dictionary<String,Any>, let string = info["isa"] as? String, string == PBXGroup.identity {
-//                dictionary[key] = try PBXGroup(uuid: key, data: info)
-//            }
-//        }
-//        items = dictionary
-//    }
-//}
-
 internal struct PBXGroup: AutoEquatable, PBXType {
     internal static let identity: String = "PBXGroup"
     
@@ -39,9 +25,8 @@ internal struct PBXGroup: AutoEquatable, PBXType {
     
     let uuid: String
     let isa: String
-    let children: Array<String>?
-    let name: String?
-    let sourceTree: String?
-    let path: String?
+    var children: Array<String>?
+    var name: String?
+    var sourceTree: String?
+    var path: String?
 }
-

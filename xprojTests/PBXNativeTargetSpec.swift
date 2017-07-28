@@ -17,7 +17,7 @@ class PBXNativeTargetSpec: QuickSpec {
             it("Full parse test") {
                 let path = Bundle(for: ParseSpec.self).path(forResource: "stub", ofType: "pbxproj")
                 let string = try? String(contentsOfFile: path!, encoding: .utf8)
-                let dictionary = try! Parser().start(string: string!)["objects"] as! Dictionary<String,Any>
+                let dictionary = try! Parser().start(string: string!).dictionary["objects"] as! PBXCollection
                 let container = try! Container<PBXNativeTarget>(data: dictionary)
                 expect(container.items.count).to(equal(1))
                 

@@ -1,0 +1,27 @@
+// swiftlint:disable file_length
+{% for type in types.implementing.PBXType %}
+// MARK: - {{ type.name }} PBXType
+extension {{ type.name }} {
+    func returnKeyvalue() throws -> KEYVALUE {
+        let key = KEY(node: STRING(content: uuid))
+        var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
+        var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
+
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        {% for variable in type.allVariables %}
+        {% if not variable.isStatic and variable.isOptional %}
+        if let {{ variable.name }} = {{ variable.name }} {
+            {% if variable.unwrappedTypeName == "String" %} 
+            allvalues.append( try KEYVALUE(key: STRING(content: "{{ variable.name }}"), value: STRING(content: {{ variable.name }})) )
+            dictionary["{{ variable.name }}"] = {{ variable.name }}
+            {% elif variable.isArray %}
+            allvalues.append( try KEYVALUE(key: STRING(content: "{{ variable.name }}"), value: {{ variable.name }}) )
+            dictionary["{{ variable.name }}"] = {{ variable.name }}
+            {% endif %}
+        }
+        {% endif %}
+        {% endfor %}
+        return try KEYVALUE(key: key, value: PBXCollection(array: allvalues, dictionary: dictionary) )
+    }
+}
+{% endfor %}

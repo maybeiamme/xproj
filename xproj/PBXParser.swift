@@ -12,10 +12,16 @@ protocol AutoEquatable {}
 protocol AutoHashable {}
 
 
+struct PBXCollection: NODE {
+    var array: Array<KEYVALUE>
+    var dictionary: Dictionary<String,Any>
+    var group: GROUP { return .component }
+    var content: Any? { return self }
+}
 
 struct Parser: PBXParserProtocol {
     
-    func start( string: String ) throws -> Dictionary<String,Any> {
+    func start( string: String ) throws -> PBXCollection {
         let cleaned = Parser.clear(string: string)
         var stack = Array<NODE>()
         var doublequat = false
@@ -76,12 +82,15 @@ struct Parser: PBXParserProtocol {
             } else if s.group == .closer {
                 if s == "}" {
                     var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
+                    var array: Array<KEYVALUE> = Array<KEYVALUE>()
                     while (stack.last as? Character) != "{" {
                         guard let keyvalue = stack.popLast() as? KEYVALUE else { throw ParseError.expectedKEYVALUE }
                         dictionary[keyvalue.key] = keyvalue.value
+                        array.append(keyvalue)
                     }
                     let _ = stack.popLast()
-                    stack.append(dictionary)
+                    
+                    stack.append(PBXCollection(array: array.reversed(), dictionary: dictionary))
                 } else if s == ")" {
                     var array: Array<Any> = Array<Any>()
                     while (stack.last as? Character) != "(" {
@@ -100,11 +109,11 @@ struct Parser: PBXParserProtocol {
             }
         }
         
-        guard let last = stack.last as? Dictionary<String,Any> else { throw ParseError.brokenSyntax }
+        guard let last = stack.last as? PBXCollection else { throw ParseError.brokenSyntax }
         return last
     }
     
-    static func clear( string: String ) -> String {
+    internal static func clear( string: String ) -> String {
         guard let annotationRemoved = Parser.removeAnnotation(string: string) else { return "" }
         guard let removeCommentedOut = Parser.removeCommentedOut(string: annotationRemoved) else { return "" }
         let cleanString = String( removeCommentedOut.characters.filter{ $0 != " " && $0 != "\t" && $0 != "\n" } )
