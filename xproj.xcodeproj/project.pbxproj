@@ -125,8 +125,8 @@
 		1FFB5E911F172A91002F4A12 /* xproj */ = {
 			isa = PBXGroup;
 			children = (
-				1FF02CAA1F2897960066405A /* SourceTemplates.swift */,
 				1FFB5E921F172A91002F4A12 /* main.swift */,
+				1FF02CAA1F2897960066405A /* SourceTemplates.swift */,
 				1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */,
 				1FF02CA81F2893400066405A /* PBXFileReference.swift */,
 				1FF02CB01F289CA70066405A /* PBXGroup.swift */,

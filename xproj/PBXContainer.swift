@@ -102,9 +102,9 @@ internal struct Container<T: PBXType> {
 }
 
 extension Container where T == PBXGroup {
-    internal func groupByName( name: String ) -> PBXGroup? {
+    internal func groupByPath( path: String ) -> PBXGroup? {
         for (_, value) in items {
-            if value.name == name { return value }
+            if value.path == path { return value }
         }
         return nil
     }
