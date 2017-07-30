@@ -46,3 +46,16 @@ and add SOURCEUUID to
  recursive to end
  
  */
+
+struct main {
+    init(args:Array<String>) {
+    }
+}
+
+struct Arguments {
+    var target: String
+    var destinationPath: String
+    var recursive: Bool = false
+    var verbose: Bool = false
+    var 
+}
