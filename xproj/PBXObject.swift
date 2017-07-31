@@ -9,7 +9,7 @@
 import Cocoa
 
 internal struct PBXObject {
-    static var shared = PBXObject()
+    internal static var shared = PBXObject()
     
     internal mutating func set( collection: PBXCollection ) {
         self.collecion = collection
@@ -27,7 +27,7 @@ internal struct PBXObject {
         return dictionary
     }
     
-    func generateHashValue() -> String? {
+    internal func generateHashValue() -> String? {
         guard collecion != nil else { return nil }
         guard let generator = generator else { return nil }
         var generated = generator.generate()

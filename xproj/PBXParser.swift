@@ -11,17 +11,16 @@ import Cocoa
 protocol AutoEquatable {}
 protocol AutoHashable {}
 
-
-struct PBXCollection: NODE {
+internal struct PBXCollection: NODE {
     var array: Array<KEYVALUE>
     var dictionary: Dictionary<String,Any>
     var group: GROUP { return .component }
     var content: Any? { return self }
 }
 
-struct Parser: PBXParserProtocol {
+internal struct Parser: PBXParserProtocol {
     
-    func start( string: String ) throws -> PBXCollection {
+    internal func start( string: String ) throws -> PBXCollection {
         let cleaned = Parser.clear(string: string)
         var stack = Array<NODE>()
         var doublequat = false

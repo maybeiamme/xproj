@@ -98,6 +98,30 @@ fileprivate func combineHashValues(_ initial: Int, _ other: Int) -> Int {
 
 // MARK: - AutoHashable for Enums
 
+// MARK: - ArgumentOption AutoHashable
+extension ArgumentOption: Hashable {
+    public var hashValue: Int {
+        switch self {
+        case .verbose:
+            return 1.hashValue
+        case .target:
+            return 2.hashValue
+        case .files:
+            return 3.hashValue
+        case .destination:
+            return 4.hashValue
+        case .recursive:
+            return 5.hashValue
+        case .project:
+            return 6.hashValue
+        case .unknown:
+            return 7.hashValue
+        case .help:
+            return 8.hashValue
+        }
+    }
+}
+
 // swiftlint:disable file_length
 // MARK: - PBXBuildFile PBXType
 extension PBXBuildFile {

@@ -75,6 +75,12 @@ internal struct Container<T: PBXType> {
         rawValue = PBXCollection(array: keyvalues, dictionary: items)
     }
     
+    internal func generateProjectWithCurrent( string: String, newline: Bool ) throws -> String {
+        let regex = try NSRegularExpression(pattern: "\\/\\* Begin \(T.identity) section \\*\\/[A-z|0-9|\\n|\\t| |\\/|\\*|.|=|{|}|(|)|;|\\\"|<|>|,|-|+|$|\\-|@]*\\/\\* End \(T.identity) section \\*\\/", options: NSRegularExpression.Options.caseInsensitive)
+        let template = "/* Begin \(T.identity) section */\n" + toString(newline: newline) + "\n/* End \(T.identity) section */"
+        return regex.stringByReplacingMatches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count), withTemplate: template)
+    }
+    
     private func valueToString( value: Any, newline: Bool ) -> String {
         if let string = value as? String {
             return string

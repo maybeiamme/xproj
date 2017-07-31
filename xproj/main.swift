@@ -49,13 +49,15 @@ and add SOURCEUUID to
 
 struct main {
     init(args:Array<String>) {
+        do {
+            let arguments = try Arguments(args: args)
+
+            let projectfile = try File.read(path: arguments.project)
+            
+        } catch {
+            Errors.handle(error: error)
+        }
     }
 }
 
-struct Arguments {
-    var target: String
-    var destinationPath: String
-    var recursive: Bool = false
-    var verbose: Bool = false
-    var 
-}
+let _ = main( args: CommandLine.arguments )
