@@ -8,15 +8,17 @@
 
 import Cocoa
 
-public enum FileError: Error {
-    case notexist
-    case failedtoread
-    case failedtowrite
-}
+
 
 public struct File {
     public static func exists( path: String ) -> Bool {
         return FileManager.default.fileExists(atPath: path )
+    }
+    
+    public static func isDirectory( path: String) -> Bool {
+        var isDirectory: ObjCBool = false
+        FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
+        return isDirectory.boolValue
     }
     
     public static func read( path: String ) throws -> String {
@@ -34,6 +36,14 @@ public struct File {
             try contents.write(toFile: path, atomically: true, encoding: .utf8)
         } catch {
             throw FileError.failedtowrite
+        }
+    }
+    
+    public static func allContents( at path: String ) throws -> Array<String> {
+        do {
+            return try FileManager.default.subpathsOfDirectory(atPath: path)
+        } catch {
+            throw FileError.failedtoread
         }
     }
 }

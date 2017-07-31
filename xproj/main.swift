@@ -52,7 +52,12 @@ struct main {
         do {
             let arguments = try Arguments(args: args)
 
-            let projectfile = try File.read(path: arguments.project)
+            
+            let projectfile = try File.read(path: (arguments.project as NSString).appendingPathComponent("project.pbxproj") )
+            
+            if arguments.recursive == true {
+                
+            }
             
         } catch {
             Errors.handle(error: error)

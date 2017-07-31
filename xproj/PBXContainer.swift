@@ -75,6 +75,11 @@ internal struct Container<T: PBXType> {
         rawValue = PBXCollection(array: keyvalues, dictionary: items)
     }
     
+    internal mutating func generateAllGroupsIfNeeded( base: String, path: String ) throws {
+        let baseInPathComponenets = (base as NSString).pathComponents
+        
+    }
+    
     internal func generateProjectWithCurrent( string: String, newline: Bool ) throws -> String {
         let regex = try NSRegularExpression(pattern: "\\/\\* Begin \(T.identity) section \\*\\/[A-z|0-9|\\n|\\t| |\\/|\\*|.|=|{|}|(|)|;|\\\"|<|>|,|-|+|$|\\-|@]*\\/\\* End \(T.identity) section \\*\\/", options: NSRegularExpression.Options.caseInsensitive)
         let template = "/* Begin \(T.identity) section */\n" + toString(newline: newline) + "\n/* End \(T.identity) section */"
@@ -113,6 +118,31 @@ extension Container where T == PBXGroup {
             if value.path == path { return value }
         }
         return nil
+    }
+    
+    internal func groupsByPath( path: String ) -> Array<PBXGroup> {
+        var array = Array<PBXGroup>()
+        for (_, value) in items {
+            if value.path == path { array.append(value) }
+        }
+        return array
+    }
+    
+    internal func groupByPathComponents( reversed paths: Array<String>, inGroup: Array<PBXGroup> ) throws -> PBXGroup {
+        var stack = paths
+        if let last = stack.popLast() {
+            if stack.isEmpty == true {
+                let newgroup = inGroup.filter{ $0.path == last }
+                if newgroup.count == 1 { return newgroup.first! }
+                else { throw ArgumentError.wronggroup }
+            } else {
+                let newgroup = inGroup.filter{ $0.path == last }.flatMap{ $0.children }.flatMap{ $0.flatMap{ groupByHashValue(hashValue: $0) } }
+                
+                if newgroup.count <= 0 { throw ArgumentError.wronggroup }
+                return try groupByPathComponents(reversed: stack, inGroup: newgroup)
+            }
+        }
+        throw ArgumentError.wronggroup
     }
     
     internal func groupByHashValue( hashValue: String ) -> PBXGroup? {

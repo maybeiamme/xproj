@@ -8,6 +8,31 @@
 
 import Cocoa
 
+public enum ArgumentError: Error {
+    case wrongargument
+    case wronggroup
+    case emptydestination
+    case emptytarget
+    case emptyfiles
+    case emptyproject
+    case helpme
+}
+
+public enum ParseError: Error {
+    case brokenSyntax
+    case unknownNode
+    case expectedSTRING
+    case expectedNODE
+    case expectedKEY
+    case expectedKEYVALUE
+}
+
+public enum FileError: Error {
+    case notexist
+    case failedtoread
+    case failedtowrite
+}
+
 public struct Errors {
     static func handle( error: Error ) {
         switch error {

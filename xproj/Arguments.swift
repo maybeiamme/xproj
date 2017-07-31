@@ -8,14 +8,7 @@
 
 import Cocoa
 
-enum ArgumentError: Error {
-    case wrongargument
-    case emptydestination
-    case emptytarget
-    case emptyfiles
-    case emptyproject
-    case helpme
-}
+
 
 struct Arguments {
     var target: String {

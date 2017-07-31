@@ -35,14 +35,7 @@ struct KEY: NODE {
     var group: GROUP { return .component }
 }
 
-enum ParseError: Error {
-    case brokenSyntax
-    case unknownNode
-    case expectedSTRING
-    case expectedNODE
-    case expectedKEY
-    case expectedKEYVALUE
-}
+
 
 enum GROUP {
     case delimiter

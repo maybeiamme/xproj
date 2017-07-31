@@ -37,6 +37,12 @@ class PBXObjectSpec: QuickSpec {
                 expect(generatorCalled).to(equal(1))
                 expect(hash).to(equal("1FFB5EBA1F173360002F4AFF"))
             }
+            
+            it( "print" ) {
+                let contents = try! File.allContents(at: "/Users/jinhyongpark/Workspace/xproj/xproj")
+                let directories = contents.filter{ File.isDirectory(path: "/Users/jinhyongpark/Workspace/xproj/xproj" + "/" + $0 ) == true }
+                print( directories )
+            }
         }
     }
 }
