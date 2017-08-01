@@ -31,6 +31,7 @@ public enum FileError: Error {
     case notexist
     case failedtoread
     case failedtowrite
+    case notdirectory
 }
 
 public struct Errors {

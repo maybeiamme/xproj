@@ -56,7 +56,12 @@ struct main {
             let projectfile = try File.read(path: (arguments.project as NSString).appendingPathComponent("project.pbxproj") )
             
             if arguments.recursive == true {
-                
+                for directory in arguments.files {
+                    if File.isDirectory(path: directory) == false { throw FileError.notdirectory }
+                }
+                let allContents = try arguments.files.flatMap{ try File.allContents(at: $0 ) }
+                let allDirectories = allContents.filter{ File.isDirectory(path: $0) == true }
+                let allFiles = allContents.filter{ File.isDirectory(path: $0) == true }
             }
             
         } catch {
