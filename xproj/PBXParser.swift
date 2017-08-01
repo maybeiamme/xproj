@@ -8,8 +8,9 @@
 
 import Cocoa
 
-protocol AutoEquatable {}
-protocol AutoHashable {}
+public protocol AutoEquatable {}
+public protocol AutoHashable {}
+public protocol AutoMockable {}
 
 internal struct PBXCollection: NODE {
     var array: Array<KEYVALUE>

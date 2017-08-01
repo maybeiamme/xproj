@@ -20,6 +20,9 @@
 		1F1EDE9A1F2EF27400D67087 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1EDE991F2EF27400D67087 /* Errors.swift */; };
 		1F1EDE9B1F2F059E00D67087 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1EDE991F2EF27400D67087 /* Errors.swift */; };
 		1F515E7F1F2AD9B00050174B /* ContainerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F515E7E1F2AD9B00050174B /* ContainerSpec.swift */; };
+		1F7622061F3034A900561276 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7622051F3034A900561276 /* Core.swift */; };
+		1F7622081F303A5D00561276 /* CoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7622071F303A5D00561276 /* CoreSpec.swift */; };
+		1F7622091F303CD900561276 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7622051F3034A900561276 /* Core.swift */; };
 		1F9F83901F29F99900FF642C /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F838F1F29F99900FF642C /* PBXNativeTarget.swift */; };
 		1F9F83921F29FB1500FF642C /* PBXNativeTargetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83911F29FB1500FF642C /* PBXNativeTargetSpec.swift */; };
 		1F9F83931F29FCA400FF642C /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F838F1F29F99900FF642C /* PBXNativeTarget.swift */; };
@@ -69,6 +72,8 @@
 		1F1EDE961F2EEFD300D67087 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		1F1EDE991F2EF27400D67087 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		1F515E7E1F2AD9B00050174B /* ContainerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSpec.swift; sourceTree = "<group>"; };
+		1F7622051F3034A900561276 /* Core.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
+		1F7622071F303A5D00561276 /* CoreSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSpec.swift; sourceTree = "<group>"; };
 		1F9F838F1F29F99900FF642C /* PBXNativeTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
 		1F9F83911F29FB1500FF642C /* PBXNativeTargetSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXNativeTargetSpec.swift; sourceTree = "<group>"; };
 		1F9F83951F29FD0600FF642C /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -149,6 +154,7 @@
 				1F1EDE931F2EE2B800D67087 /* Arguments.swift */,
 				1F1EDE961F2EEFD300D67087 /* File.swift */,
 				1F1EDE991F2EF27400D67087 /* Errors.swift */,
+				1F7622051F3034A900561276 /* Core.swift */,
 			);
 			path = xproj;
 			sourceTree = "<group>";
@@ -166,6 +172,7 @@
 				1F515E7E1F2AD9B00050174B /* ContainerSpec.swift */,
 				1F195FDC1F2B2E8A0006B6A2 /* PBXObjectSpec.swift */,
 				1F1EDE911F2EE0F500D67087 /* ArgumentsSpec.swift */,
+				1F7622071F303A5D00561276 /* CoreSpec.swift */,
 			);
 			path = xprojTests;
 			sourceTree = "<group>";
@@ -341,6 +348,7 @@
 				1F1EDE9A1F2EF27400D67087 /* Errors.swift in Sources */,
 				1F9F83961F29FD0600FF642C /* Entity.swift in Sources */,
 				1F00FCF91F273E7F00BB50C0 /* PBXBuildFile.swift in Sources */,
+				1F7622061F3034A900561276 /* Core.swift in Sources */,
 				1F9F83901F29F99900FF642C /* PBXNativeTarget.swift in Sources */,
 				1FF02CAB1F2897960066405A /* SourceTemplates.swift in Sources */,
 				1F1EDE941F2EE2B800D67087 /* Arguments.swift in Sources */,
@@ -351,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F7622091F303CD900561276 /* Core.swift in Sources */,
 				1F9F83931F29FCA400FF642C /* PBXNativeTarget.swift in Sources */,
 				1FFB5EAC1F1732EB002F4A12 /* ParseSpec.swift in Sources */,
 				1F9F839A1F29FD5E00FF642C /* PBXContainer.swift in Sources */,
@@ -364,6 +373,7 @@
 				1F195FDD1F2B2E8A0006B6A2 /* PBXObjectSpec.swift in Sources */,
 				1FFB5EDD1F175C17002F4A12 /* main.swift in Sources */,
 				1FF02CAD1F2899220066405A /* SourceTemplates.swift in Sources */,
+				1F7622081F303A5D00561276 /* CoreSpec.swift in Sources */,
 				1F1EDE9B1F2F059E00D67087 /* Errors.swift in Sources */,
 				1F1EDE921F2EE0F500D67087 /* ArgumentsSpec.swift in Sources */,
 				1FF02CAC1F28991D0066405A /* PBXFileReference.swift in Sources */,

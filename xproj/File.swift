@@ -8,9 +8,15 @@
 
 import Cocoa
 
+public protocol FileProtocol: AutoMockable {
+    static func exists( path: String ) -> Bool
+    static func isDirectory( path: String) -> Bool
+    static func read( path: String ) throws -> String
+    static func write( path: String, contents: String ) throws
+    static func allContents( at path: String ) throws -> Array<String>
+}
 
-
-public struct File {
+public struct File: FileProtocol {
     public static func exists( path: String ) -> Bool {
         return FileManager.default.fileExists(atPath: path )
     }
@@ -41,7 +47,8 @@ public struct File {
     
     public static func allContents( at path: String ) throws -> Array<String> {
         do {
-            return try FileManager.default.subpathsOfDirectory(atPath: path)
+            let allContent = try FileManager.default.subpathsOfDirectory(atPath: path)
+            return allContent.map{ (path as NSString).appendingPathComponent($0) }
         } catch {
             throw FileError.failedtoread
         }

@@ -1,0 +1,70 @@
+// swiftlint:disable line_length
+
+import Foundation
+#if os(iOS) || os(tvOS) || os(watchOS)
+import UIKit
+#elseif os(OSX)
+import AppKit
+#endif
+
+{% macro methodReceivedParameters method %}
+    {%if method.parameters.count == 1 %}
+        {{ method.shortName }}Received{% for param in method.parameters %}{{ param.name|upperFirst }} = {{ param.name }}{% endfor %}
+    {% else %}
+    {% if not method.parameters.count == 0 %}
+        {{ method.shortName }}ReceivedArgumentsFor{{ method.parameters.0.name|upperFirst }} = ({% for param in method.parameters %}{{ param.name }}: {{ param.name }}{% if not forloop.last%}, {% endif %}{% endfor %})
+    {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro initWithVariables method %}
+    {% for variable in type.allVariables %}
+     {% for param in method.parameters %}
+     {% if variable.typeName.description == param.typeName.description %}
+        self.{{variable.name}} = {{param.name}}
+     {% endif %}
+     {% endfor %}
+     {% endfor %}
+{% endmacro %}
+
+
+{% macro methodReturnValueVariableName method %}
+{{ method.shortName }}ReturnValue
+{% endmacro %}
+
+{% for type in types.based.AutoMockable %}{% if type.kind == 'protocol' %}
+{% if not type.name == "AutoMockable" %}
+class {{ type.name }}Mock: {{ type.name }} {
+    {% for variable in type.allVariables %}
+    var {{ variable.name }}: {{ variable.typeName }}{% if not variable.isOptional %}{% if not variable.isArray and not variable.isDictionary %}{% elif variable.isArray %} = []{% elif variable.isDictionary %} = [:]{% endif %}{% endif %}
+    {% endfor %}
+
+{% for method in type.allMethods %}
+    //MARK: - {{ method.shortName }}
+
+    {% if not method.returnTypeName.isVoid and not method.isInitializer and not method.isStatic %}var {{ method.shortName }}ReturnValue: {{ method.returnTypeName }}{% if not method.actualReturnTypeName.isOptional %}?{% endif %}
+    {% elif not method.returnTypeName.isVoid and not method.isInitializer and method.isStatic %}static var {{ method.shortName }}ReturnValue: {{ method.returnTypeName }}{% if not method.actualReturnTypeName.isOptional %}?{% endif %}{% endif %}
+
+{% if method.isInitializer %}
+    required {{ method.name }} {
+        {% call initWithVariables method %}
+    }
+{% else %}
+    {% if method.isStatic %}static {% elif method.isClass %}class {% endif %}func {{ method.name }}{% if not method.returnTypeName.isVoid %} -> {{ method.returnTypeName }}{% endif %} {
+
+        {% if not method.returnTypeName.isVoid %}return {{ method.shortName }}ReturnValue{% if not method.isOptionalReturnType %}!{% endif %}{% endif %}
+    }
+{% endif %}
+{% endfor %}
+
+{% if type.annotations.needParamInitalizer == "true" %}
+    init( {% for variable in type.allVariables %}{% if forloop.first %}{{ variable.name }}: {{ variable.typeName }}{% else %}, {{ variable.name }}: {{ variable.typeName }}{% endif %}{% endfor %} ) {
+        {% for variable in type.allVariables %}self.{{ variable.name }} = {{ variable.name }}
+        {% endfor %} 
+    }
+{% endif %}
+
+}
+
+{% endif %}{% endif %}
+{% endfor %}

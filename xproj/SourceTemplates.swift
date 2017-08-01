@@ -122,6 +122,84 @@ extension ArgumentOption: Hashable {
     }
 }
 
+// swiftlint:disable line_length
+
+import Foundation
+#if os(iOS) || os(tvOS) || os(watchOS)
+import UIKit
+#elseif os(OSX)
+import AppKit
+#endif
+
+
+
+
+
+class ArgumentsProtocolMock: ArgumentsProtocol {
+    var target: String
+    var destination: String
+    var recursive: Bool
+    var verbose: Bool
+    var files: Array<String> = []
+    var project: String
+
+
+    init( target: String, destination: String, recursive: Bool, verbose: Bool, files: Array<String>, project: String ) {
+        self.target = target
+        self.destination = destination
+        self.recursive = recursive
+        self.verbose = verbose
+        self.files = files
+        self.project = project
+    }
+
+}
+
+class FileProtocolMock: FileProtocol {
+
+    //MARK: - exists
+
+    static var existsReturnValue: Bool?
+
+    static func exists( path: String ) -> Bool {
+
+        return existsReturnValue!
+    }
+    //MARK: - isDirectory
+
+    static var isDirectoryReturnValue: Bool?
+
+    static func isDirectory( path: String) -> Bool {
+
+        return isDirectoryReturnValue!
+    }
+    //MARK: - read
+
+    static var readReturnValue: String?
+
+    static func read( path: String ) -> String {
+
+        return readReturnValue!
+    }
+    //MARK: - write
+
+
+    static func write( path: String, contents: String ) {
+
+    }
+    //MARK: - allContents
+
+    static var allContentsReturnValue: Array<String>?
+
+    static func allContents( at path: String ) -> Array<String> {
+
+        return allContentsReturnValue!
+    }
+
+
+}
+
+
 // swiftlint:disable file_length
 // MARK: - PBXBuildFile PBXType
 extension PBXBuildFile {

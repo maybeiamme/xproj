@@ -8,7 +8,15 @@
 
 import Cocoa
 
-
+//sourcery: needParamInitalizer = "true"
+protocol ArgumentsProtocol: AutoMockable {
+    var target: String { get }
+    var destination: String { get }
+    var recursive: Bool { get }
+    var verbose: Bool { get }
+    var files: Array<String> { get }
+    var project: String { get }
+}
 
 struct Arguments {
     var target: String {
