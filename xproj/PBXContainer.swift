@@ -128,6 +128,25 @@ extension Container where T == PBXGroup {
         return array
     }
     
+    internal func trace( path: String, mainGroupId: String ) {
+        var current: String?
+        current = mainGroupId
+        let components = path.components(separatedBy: "/")
+        for component in components {
+            if let hashValue = current, let group = groupByHashValue(hashValue: hashValue) {
+                let tracked = group.children?.map{ hash in
+                    return groupByHashValue(hashValue: hash)!
+                }.filter{ g in
+                    return g.uuid == component
+                }.first
+                current = tracked?.uuid
+            } else {
+//                not found
+            }
+        }
+        
+    }
+    
     internal func groupByPathComponents( reversed paths: Array<String>, inGroup: Array<PBXGroup> ) throws -> PBXGroup {
         var stack = paths
         if let last = stack.popLast() {
