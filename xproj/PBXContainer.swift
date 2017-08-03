@@ -23,6 +23,10 @@ protocol UUIDGeneratorProtocol {
     static func generate() -> String
 }
 
+protocol UUIDWithoutDuplicateProtocol {
+    func generateHashValue() -> String?
+}
+
 internal struct UUIDGenerator: UUIDGeneratorProtocol {
     static func generate() -> String {
         let uuid = UUID().uuid
@@ -55,8 +59,8 @@ internal struct Container<T: PBXType> {
         return strings.joined(separator: "\n")
     }
     
-    internal func new() throws -> T {
-        guard let hashValue = PBXObject.shared.generateHashValue() else { throw PBXError.hashgeneration }
+    internal func new( generator: UUIDWithoutDuplicateProtocol ) throws -> T {
+        guard let hashValue = generator.generateHashValue() else { throw PBXError.hashgeneration }
         let new = try T(uuid: hashValue, data: ["isa": T.identity])
         return new
     }
@@ -73,11 +77,6 @@ internal struct Container<T: PBXType> {
         var keyvalues = rawValue.array.filter{ $0.key != new.uuid }
         keyvalues.append( try new.returnKeyvalue() )
         rawValue = PBXCollection(array: keyvalues, dictionary: items)
-    }
-    
-    internal mutating func generateAllGroupsIfNeeded( base: String, path: String ) throws {
-        let baseInPathComponenets = (base as NSString).pathComponents
-        
     }
     
     internal func generateProjectWithCurrent( string: String, newline: Bool ) throws -> String {
@@ -113,54 +112,37 @@ internal struct Container<T: PBXType> {
 }
 
 extension Container where T == PBXGroup {
-    internal func groupByPath( path: String ) -> PBXGroup? {
-        for (_, value) in items {
-            if value.path == path { return value }
-        }
-        return nil
-    }
     
-    internal func groupsByPath( path: String ) -> Array<PBXGroup> {
-        var array = Array<PBXGroup>()
-        for (_, value) in items {
-            if value.path == path { array.append(value) }
-        }
-        return array
-    }
-    
-    internal func trace( path: String, mainGroupId: String ) {
-        var current: String?
-        current = mainGroupId
-        let components = path.components(separatedBy: "/")
-        for component in components {
-            if let hashValue = current, let group = groupByHashValue(hashValue: hashValue) {
-                let tracked = group.children?.map{ hash in
-                    return groupByHashValue(hashValue: hash)!
-                }.filter{ g in
-                    return g.uuid == component
-                }.first
-                current = tracked?.uuid
-            } else {
-//                not found
-            }
+    internal mutating func findGroupByPath( parent: String, reversedPathArray: Array<String>, generateGroupIfNeeded: Bool, uuidGenerator: UUIDWithoutDuplicateProtocol ) throws -> PBXGroup {
+        if reversedPathArray.isEmpty == true {
+            guard let returnValue = groupByHashValue(hashValue: parent) else { throw ArgumentError.wronggroup }
+            return returnValue
         }
         
-    }
-    
-    internal func groupByPathComponents( reversed paths: Array<String>, inGroup: Array<PBXGroup> ) throws -> PBXGroup {
-        var stack = paths
-        if let last = stack.popLast() {
-            if stack.isEmpty == true {
-                let newgroup = inGroup.filter{ $0.path == last }
-                if newgroup.count == 1 { return newgroup.first! }
-                else { throw ArgumentError.wronggroup }
-            } else {
-                let newgroup = inGroup.filter{ $0.path == last }.flatMap{ $0.children }.flatMap{ $0.flatMap{ groupByHashValue(hashValue: $0) } }
-                
-                if newgroup.count <= 0 { throw ArgumentError.wronggroup }
-                return try groupByPathComponents(reversed: stack, inGroup: newgroup)
-            }
+        var stack = reversedPathArray.filter{ $0 != "" }
+        guard let path = stack.popLast(), var parentGroup = groupByHashValue(hashValue: parent) else { throw ArgumentError.wronggroup }
+        guard let children = parentGroup.children else { throw ArgumentError.wronggroup }
+        let candidate = children.flatMap{ groupByHashValue(hashValue: $0) }.filter{ $0.path == path }
+        if candidate.count <= 0 && generateGroupIfNeeded == true {
+            var newGroup = try self.new( generator: uuidGenerator )
+            newGroup.path = path
+            newGroup.children = Array<String>()
+            try add(new: newGroup)
+            parentGroup.children = parentGroup.children == nil ? [newGroup.uuid] : parentGroup.children! + [newGroup.uuid]
+            try modify(new: parentGroup)
+            return try findGroupByPath(parent: newGroup.uuid, reversedPathArray: stack, generateGroupIfNeeded: generateGroupIfNeeded, uuidGenerator: uuidGenerator )
+        } else if candidate.count <= 0 && generateGroupIfNeeded == false {
+            throw ArgumentError.wronggroup
         }
+        
+        if candidate.count == 1, let first = candidate.first {
+            return try findGroupByPath(parent: first.uuid, reversedPathArray: stack, generateGroupIfNeeded: generateGroupIfNeeded, uuidGenerator: uuidGenerator )
+        }
+        
+        if candidate.count > 2 {
+            throw ArgumentError.wronggroup
+        }
+        
         throw ArgumentError.wronggroup
     }
     

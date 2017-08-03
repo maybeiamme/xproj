@@ -34,6 +34,10 @@ public enum FileError: Error {
     case notdirectory
 }
 
+public enum FatalError: Error {
+    case notgonnabehappen
+}
+
 public struct Errors {
     static func handle( error: Error ) {
         switch error {
