@@ -28,6 +28,16 @@ internal struct Core {
 
             projectfile = try fileManager.read(path: (arguments.project as NSString).appendingPathComponent("project.pbxproj") )
             
+            guard let projectfile = projectfile else { throw FileError.failedtoread }
+            let root = try Parser().start(string: projectfile)
+            guard let collection = root.dictionary["objects"] as? PBXCollection else { throw FileError.failedtoread }
+            guard let rootObject = root.dictionary["rootObject"] as? String else {
+                throw FileError.failedtoread
+            }
+            let project = try Container<PBXProject>(data: collection)
+            guard let mainGroup = project.items[rootObject]?.mainGroup else { throw FileError.failedtoread }
+            var group = try Container<PBXGroup>(data: collection)
+            
             if arguments.recursive == true {
                 for directory in arguments.files {
                     if fileManager.isDirectory(path: directory) == false { throw FileError.notdirectory }
@@ -48,6 +58,15 @@ internal struct Core {
                 let relativeFiles = arguments.files.map{ ($0 as NSString).lastPathComponent }
                 filesMustBeAdded = relativeFiles.map{ (arguments.destination as NSString).appendingPathComponent($0) }
             }
+            
+            if let addableGroups = groupsMustBeAdded {
+                try addableGroups
+                    .map{ $0.components(separatedBy: "/").reversed() as Array<String> }
+                    .forEach{ value in
+                        let _ = try group.findGroupByPath(parent: mainGroup, reversedPathArray: value, generateGroupIfNeeded: true, uuidGenerator: PBXObject.shared)
+                }
+            }
+            
         } catch {
             Errors.handle(error: error)
         }

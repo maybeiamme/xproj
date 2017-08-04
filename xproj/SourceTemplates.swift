@@ -71,6 +71,14 @@ internal func == (lhs: PBXNativeTarget, rhs: PBXNativeTarget) -> Bool {
     guard compareOptionals(lhs: lhs.productType, rhs: rhs.productType, compare: ==) else { return false }
     return true
 }
+// MARK: - PBXProject AutoEquatable
+extension PBXProject: Equatable {}
+internal func == (lhs: PBXProject, rhs: PBXProject) -> Bool {
+    guard lhs.uuid == rhs.uuid else { return false }
+    guard lhs.isa == rhs.isa else { return false }
+    guard compareOptionals(lhs: lhs.mainGroup, rhs: rhs.mainGroup, compare: ==) else { return false }
+    return true
+}
 
 // MARK: - AutoEquatable for Enums
 
@@ -313,6 +321,21 @@ extension PBXNativeTarget {
         if let productType = productType {
             allvalues.append( try KEYVALUE(key: STRING(content: "productType"), value: STRING(content: productType)) )
             dictionary["productType"] = productType
+        }
+        return try KEYVALUE(key: key, value: PBXCollection(array: allvalues, dictionary: dictionary) )
+    }
+}
+// MARK: - PBXProject PBXType
+extension PBXProject {
+    func returnKeyvalue() throws -> KEYVALUE {
+        let key = KEY(node: STRING(content: uuid))
+        var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
+        var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
+
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        if let mainGroup = mainGroup {
+            allvalues.append( try KEYVALUE(key: STRING(content: "mainGroup"), value: STRING(content: mainGroup)) )
+            dictionary["mainGroup"] = mainGroup
         }
         return try KEYVALUE(key: key, value: PBXCollection(array: allvalues, dictionary: dictionary) )
     }

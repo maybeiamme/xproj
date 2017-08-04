@@ -31,6 +31,7 @@
 		1F9F83991F29FD4A00FF642C /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83951F29FD0600FF642C /* Entity.swift */; };
 		1F9F839A1F29FD5E00FF642C /* PBXContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83971F29FD4500FF642C /* PBXContainer.swift */; };
 		1FBDA98F1F274CD200F4038B /* PBXBuildFileSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDA98E1F274CD200F4038B /* PBXBuildFileSpec.swift */; };
+		1FCC9DFC1F34806A0029659E /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC9DFB1F34806A0029659E /* PBXProject.swift */; };
 		1FF02CA61F28850E0066405A /* PBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF02CA51F28850E0066405A /* PBXParser.swift */; };
 		1FF02CA71F28852D0066405A /* PBXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF02CA51F28850E0066405A /* PBXParser.swift */; };
 		1FF02CA91F2893400066405A /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF02CA81F2893400066405A /* PBXFileReference.swift */; };
@@ -79,6 +80,7 @@
 		1F9F83951F29FD0600FF642C /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		1F9F83971F29FD4500FF642C /* PBXContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXContainer.swift; sourceTree = "<group>"; };
 		1FBDA98E1F274CD200F4038B /* PBXBuildFileSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXBuildFileSpec.swift; sourceTree = "<group>"; };
+		1FCC9DFB1F34806A0029659E /* PBXProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProject.swift; sourceTree = "<group>"; };
 		1FF02CA51F28850E0066405A /* PBXParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXParser.swift; sourceTree = "<group>"; };
 		1FF02CA81F2893400066405A /* PBXFileReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFileReference.swift; sourceTree = "<group>"; };
 		1FF02CAA1F2897960066405A /* SourceTemplates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceTemplates.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				1F9F83971F29FD4500FF642C /* PBXContainer.swift */,
 				1F195FD91F2B20250006B6A2 /* PBXObject.swift */,
 				1F1EDE931F2EE2B800D67087 /* Arguments.swift */,
+				1FCC9DFB1F34806A0029659E /* PBXProject.swift */,
 				1F1EDE961F2EEFD300D67087 /* File.swift */,
 				1F1EDE991F2EF27400D67087 /* Errors.swift */,
 				1F7622051F3034A900561276 /* Core.swift */,
@@ -328,7 +331,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -350,6 +353,7 @@
 				1F00FCF91F273E7F00BB50C0 /* PBXBuildFile.swift in Sources */,
 				1F7622061F3034A900561276 /* Core.swift in Sources */,
 				1F9F83901F29F99900FF642C /* PBXNativeTarget.swift in Sources */,
+				1FCC9DFC1F34806A0029659E /* PBXProject.swift in Sources */,
 				1FF02CAB1F2897960066405A /* SourceTemplates.swift in Sources */,
 				1F1EDE941F2EE2B800D67087 /* Arguments.swift in Sources */,
 			);

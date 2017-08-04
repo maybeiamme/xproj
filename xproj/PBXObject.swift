@@ -8,7 +8,7 @@
 
 import Cocoa
 
-internal struct PBXObject {
+internal struct PBXObject: UUIDWithoutDuplicateProtocol {
     internal static var shared = PBXObject()
     
     internal mutating func set( collection: PBXCollection ) {
