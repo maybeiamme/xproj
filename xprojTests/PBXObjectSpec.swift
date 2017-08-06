@@ -47,11 +47,11 @@ class PBXObjectSpec: QuickSpec {
 //                try! File.allContents(at: "/Users/jinhyongpark/Workspace/xproj")
 //                try! File.allContents(at: "/Users/jinhyongpark/Workspace/xproj")
                 
-                let relativeDirectories = ["/Users/jinhyongpark/Workspace/xproj/xproj", "/Users/jinhyongpark/Workspace/xproj/xprojTests"].flatMap{ base in
-                        return try! File.allContents(at: base).filter{ File.isDirectory(path: $0) }.map{ $0.replacingOccurrences(of: base, with: "") }
-                }
-                print( relativeDirectories )
-                    
+//                let relativeDirectories = ["/Users/jinhyongpark/Workspace/xproj/xproj", "/Users/jinhyongpark/Workspace/xproj/xprojTests"].flatMap{ base in
+//                        return try! File.allContents(at: base).filter{ File.isDirectory(path: $0) }.map{ $0.replacingOccurrences(of: base, with: "") }
+//                }
+//                print( relativeDirectories )
+                
 //                let allContents = ["/Users/jinhyongpark/Workspace/xproj/xproj", "/Users/jinhyongpark/Workspace/xproj/xprojTests"].flatMap{ try! File.allContents(at: $0 ) }
 //                let allDirectories = allContents.filter{ File.isDirectory(path: $0) == true }
 //                print( allDirectories )

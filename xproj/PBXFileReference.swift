@@ -23,14 +23,18 @@ internal struct PBXFileReference: AutoEquatable, PBXType {
         self.path = data["path"] as? String
         self.sourceTree = data["sourceTree"] as? String
         self.name = data["name"] as? String
+        self.sourceTree = data["fileEncoding"] as? String
+        self.name = data["lastKnownFileType"] as? String
     }
     
     let uuid: String
     let isa: String
-    let explicitFileType: String?
-    let includeInIndex: String?
-    let path: String?
-    let sourceTree: String?
-    let name: String?
+    var fileEncoding: String?
+    var lastKnownFileType: String?
+    var explicitFileType: String?
+    var includeInIndex: String?
+    var path: String?
+    var sourceTree: String?
+    var name: String?
 }
 

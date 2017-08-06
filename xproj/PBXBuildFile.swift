@@ -22,6 +22,6 @@ internal struct PBXBuildFile: AutoEquatable, PBXType {
     
     let uuid: String
     let isa: String
-    let fileRef: String?
+    var fileRef: String?
 }
 

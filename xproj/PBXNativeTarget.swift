@@ -30,14 +30,14 @@ internal struct PBXNativeTarget: AutoEquatable, PBXType {
     
     let uuid: String
     let isa: String
-    let buildConfigurationList: String?
-    let buildPhases: Array<String>?
-    let buildRules: Array<String>?
-    let dependencies: Array<String>?
-    let name: String?
-    let productName: String?
-    let productReference: String?
-    let productType: String?
+    var buildConfigurationList: String?
+    var buildPhases: Array<String>?
+    var buildRules: Array<String>?
+    var dependencies: Array<String>?
+    var name: String?
+    var productName: String?
+    var productReference: String?
+    var productType: String?
     
 }
 

@@ -151,6 +151,24 @@ extension Container where T == PBXGroup {
     }
 }
 
+extension Container where T == PBXNativeTarget {
+    internal func targetByName( name: String ) -> PBXNativeTarget? {
+        for (_, value) in items {
+            if value.name == name { return value }
+        }
+        return nil
+    }
+}
+
+extension Container where T == PBXSourcesBuildPhase {
+    internal func sourceFromBuildPhases( uuids: Array<String> ) -> PBXSourcesBuildPhase? {
+        for (key, value) in items {
+            if uuids.contains(key) { return value }
+        }
+        return nil
+    }
+}
+
 protocol PBXParserProtocol {
     func start( string: String ) throws -> PBXCollection
 }

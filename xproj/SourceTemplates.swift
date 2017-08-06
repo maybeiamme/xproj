@@ -1,4 +1,4 @@
-// Generated using Sourcery 0.6.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 0.7.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 
@@ -38,6 +38,8 @@ extension PBXFileReference: Equatable {}
 internal func == (lhs: PBXFileReference, rhs: PBXFileReference) -> Bool {
     guard lhs.uuid == rhs.uuid else { return false }
     guard lhs.isa == rhs.isa else { return false }
+    guard compareOptionals(lhs: lhs.fileEncoding, rhs: rhs.fileEncoding, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.lastKnownFileType, rhs: rhs.lastKnownFileType, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.explicitFileType, rhs: rhs.explicitFileType, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.includeInIndex, rhs: rhs.includeInIndex, compare: ==) else { return false }
     guard compareOptionals(lhs: lhs.path, rhs: rhs.path, compare: ==) else { return false }
@@ -77,6 +79,16 @@ internal func == (lhs: PBXProject, rhs: PBXProject) -> Bool {
     guard lhs.uuid == rhs.uuid else { return false }
     guard lhs.isa == rhs.isa else { return false }
     guard compareOptionals(lhs: lhs.mainGroup, rhs: rhs.mainGroup, compare: ==) else { return false }
+    return true
+}
+// MARK: - PBXSourcesBuildPhase AutoEquatable
+extension PBXSourcesBuildPhase: Equatable {}
+internal func == (lhs: PBXSourcesBuildPhase, rhs: PBXSourcesBuildPhase) -> Bool {
+    guard lhs.uuid == rhs.uuid else { return false }
+    guard lhs.isa == rhs.isa else { return false }
+    guard compareOptionals(lhs: lhs.buildActionMask, rhs: rhs.buildActionMask, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.files, rhs: rhs.files, compare: ==) else { return false }
+    guard compareOptionals(lhs: lhs.runOnlyForDeploymentPostprocessing, rhs: rhs.runOnlyForDeploymentPostprocessing, compare: ==) else { return false }
     return true
 }
 
@@ -232,6 +244,14 @@ extension PBXFileReference {
         var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
 
         allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        if let fileEncoding = fileEncoding {
+            allvalues.append( try KEYVALUE(key: STRING(content: "fileEncoding"), value: STRING(content: fileEncoding)) )
+            dictionary["fileEncoding"] = fileEncoding
+        }
+        if let lastKnownFileType = lastKnownFileType {
+            allvalues.append( try KEYVALUE(key: STRING(content: "lastKnownFileType"), value: STRING(content: lastKnownFileType)) )
+            dictionary["lastKnownFileType"] = lastKnownFileType
+        }
         if let explicitFileType = explicitFileType {
             allvalues.append( try KEYVALUE(key: STRING(content: "explicitFileType"), value: STRING(content: explicitFileType)) )
             dictionary["explicitFileType"] = explicitFileType
@@ -336,6 +356,29 @@ extension PBXProject {
         if let mainGroup = mainGroup {
             allvalues.append( try KEYVALUE(key: STRING(content: "mainGroup"), value: STRING(content: mainGroup)) )
             dictionary["mainGroup"] = mainGroup
+        }
+        return try KEYVALUE(key: key, value: PBXCollection(array: allvalues, dictionary: dictionary) )
+    }
+}
+// MARK: - PBXSourcesBuildPhase PBXType
+extension PBXSourcesBuildPhase {
+    func returnKeyvalue() throws -> KEYVALUE {
+        let key = KEY(node: STRING(content: uuid))
+        var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
+        var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
+
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        if let buildActionMask = buildActionMask {
+            allvalues.append( try KEYVALUE(key: STRING(content: "buildActionMask"), value: STRING(content: buildActionMask)) )
+            dictionary["buildActionMask"] = buildActionMask
+        }
+        if let files = files {
+            allvalues.append( try KEYVALUE(key: STRING(content: "files"), value: files) )
+            dictionary["files"] = files
+        }
+        if let runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing {
+            allvalues.append( try KEYVALUE(key: STRING(content: "runOnlyForDeploymentPostprocessing"), value: STRING(content: runOnlyForDeploymentPostprocessing)) )
+            dictionary["runOnlyForDeploymentPostprocessing"] = runOnlyForDeploymentPostprocessing
         }
         return try KEYVALUE(key: key, value: PBXCollection(array: allvalues, dictionary: dictionary) )
     }

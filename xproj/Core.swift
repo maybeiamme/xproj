@@ -67,6 +67,40 @@ internal struct Core {
                 }
             }
             
+            var targetContainer = try Container<PBXNativeTarget>(data: collection)
+            guard let buildPhases = targetContainer.targetByName(name: arguments.target)?.buildPhases else { throw ArgumentError.wrongargument }
+            var sourceContainter = try Container<PBXSourcesBuildPhase>(data: collection)
+            guard var source = sourceContainter.sourceFromBuildPhases(uuids: buildPhases) else { throw ArgumentError.wrongargument }
+            var buildFiles = try Container<PBXBuildFile>(data: collection)
+            var buildFileReferences = try Container<PBXFileReference>(data: collection)
+            if let filesToAdd = groupsMustBeAdded {
+                try filesToAdd.map{ ($0 as NSString).pathComponents }.forEach{ pathComponents in
+                    
+                    guard let filename = pathComponents.last else { throw ArgumentError.wrongargument }
+                    
+                    var filereference = try buildFileReferences.new(generator: PBXObject.shared)
+                    filereference.fileEncoding = "4"
+                    filereference.lastKnownFileType = "sourcecode.swift"
+                    filereference.path = filename
+                    filereference.sourceTree = "<group>";
+                    
+                    var file = try buildFiles.new(generator: PBXObject.shared)
+                    file.fileRef = filereference.uuid
+                    
+                    var foundGroup = try group.findGroupByPath(parent: mainGroup,
+                                                      reversedPathArray: Array(pathComponents.dropLast()).reversed() as Array<String>,
+                                                      generateGroupIfNeeded: false,
+                                                      uuidGenerator: PBXObject.shared)
+                    foundGroup.children?.append(filereference.uuid)
+                    try group.modify(new: foundGroup)
+                    
+                    source.files?.append(file.uuid)
+                    try buildFiles.add(new: file)
+                    try buildFileReferences.add(new: filereference)
+                }
+                try sourceContainter.modify(new: source)
+            }
+            
         } catch {
             Errors.handle(error: error)
         }
