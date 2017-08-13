@@ -38,6 +38,9 @@ internal struct Core {
             guard let mainGroup = project.items[rootObject]?.mainGroup else { throw FileError.failedtoread }
             var group = try Container<PBXGroup>(data: collection)
             
+            PBXObject.shared.generator = UUIDGenerator.self
+            PBXObject.shared.set(collection: collection)
+            
             if arguments.recursive == true {
                 for directory in arguments.files {
                     if fileManager.isDirectory(path: directory) == false { throw FileError.notdirectory }
@@ -60,20 +63,25 @@ internal struct Core {
             }
             
             if let addableGroups = groupsMustBeAdded {
-                try addableGroups
-                    .map{ $0.components(separatedBy: "/").reversed() as Array<String> }
-                    .forEach{ value in
-                        let _ = try group.findGroupByPath(parent: mainGroup, reversedPathArray: value, generateGroupIfNeeded: true, uuidGenerator: PBXObject.shared)
+                do {
+                    try addableGroups
+                        .map{ $0.components(separatedBy: "/").reversed() as Array<String> }
+                        .forEach{ value in
+                            let _ = try group.findGroupByPath(parent: mainGroup, reversedPathArray: value, generateGroupIfNeeded: true, uuidGenerator: PBXObject.shared)
+                    }
+                } catch {
+                    print( "error parser : [\(error)]")
                 }
+                
             }
             
-            var targetContainer = try Container<PBXNativeTarget>(data: collection)
+            let targetContainer = try Container<PBXNativeTarget>(data: collection)
             guard let buildPhases = targetContainer.targetByName(name: arguments.target)?.buildPhases else { throw ArgumentError.wrongargument }
             var sourceContainter = try Container<PBXSourcesBuildPhase>(data: collection)
             guard var source = sourceContainter.sourceFromBuildPhases(uuids: buildPhases) else { throw ArgumentError.wrongargument }
             var buildFiles = try Container<PBXBuildFile>(data: collection)
             var buildFileReferences = try Container<PBXFileReference>(data: collection)
-            if let filesToAdd = groupsMustBeAdded {
+            if let filesToAdd = filesMustBeAdded {
                 try filesToAdd.map{ ($0 as NSString).pathComponents }.forEach{ pathComponents in
                     
                     guard let filename = pathComponents.last else { throw ArgumentError.wrongargument }
@@ -100,6 +108,25 @@ internal struct Core {
                 }
                 try sourceContainter.modify(new: source)
             }
+            
+            
+            let originalString = projectfile
+            let PBXGroupModified = try group.generateProjectWithCurrent(string: originalString, newline: true)
+            print( groupsMustBeAdded )
+            print( filesMustBeAdded )
+            print( group.items )
+            let PBXSourceContainerModified = try sourceContainter.generateProjectWithCurrent(string: PBXGroupModified, newline: true)
+            let PBXBuildFilesModified = try buildFiles.generateProjectWithCurrent(string: PBXSourceContainerModified, newline: true)
+            let PBXBuildFileReferenceModified = try buildFileReferences.generateProjectWithCurrent(string: PBXBuildFilesModified, newline: true)
+//            print( "---------------------------------------------------------------")
+//            print( "---------------------------------------------------------------")
+//            print( "---------------------------------------------------------------")
+//            print( "---------------------------------------------------------------")
+//            print( PBXBuildFileReferenceModified )
+//            print( "---------------------------------------------------------------")
+//            print( "---------------------------------------------------------------")
+//            print( "---------------------------------------------------------------")
+//            print( "---------------------------------------------------------------")
             
         } catch {
             Errors.handle(error: error)

@@ -12,7 +12,6 @@ internal struct PBXSourcesBuildPhase: AutoEquatable, PBXType {
     internal static var identity: String = "PBXSourcesBuildPhase"
     
     init( uuid: String, data: Dictionary<String,Any> ) throws {
-        print( "data when init PBXSourcesBuildPhase : [\(data)]" )
         guard let isa = data["isa"] as? String else {
             throw ParseError.brokenSyntax
         }

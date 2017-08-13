@@ -120,7 +120,9 @@ extension Container where T == PBXGroup {
         }
         
         var stack = reversedPathArray.filter{ $0 != "" }
-        guard let path = stack.popLast(), var parentGroup = groupByHashValue(hashValue: parent) else { throw ArgumentError.wronggroup }
+        guard let path = stack.popLast(),
+            var parentGroup = groupByHashValue(hashValue: parent)
+            else { throw ArgumentError.wronggroup }
         guard let children = parentGroup.children else { throw ArgumentError.wronggroup }
         let candidate = children.flatMap{ groupByHashValue(hashValue: $0) }.filter{ $0.path == path }
         if candidate.count <= 0 && generateGroupIfNeeded == true {
