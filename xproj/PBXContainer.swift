@@ -62,6 +62,7 @@ internal struct Container<T: PBXType> {
     internal func new( generator: UUIDWithoutDuplicateProtocol ) throws -> T {
         guard let hashValue = generator.generateHashValue() else { throw PBXError.hashgeneration }
         let new = try T(uuid: hashValue, data: ["isa": T.identity])
+        print( "all new identity : [\(T.identity)]")
         return new
     }
     

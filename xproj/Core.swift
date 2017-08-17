@@ -25,8 +25,8 @@ internal struct Core {
             guard let fileManager = fileManager else { throw FileError.notexist }
             
             let arguments = argument
-
-            projectfile = try fileManager.read(path: (arguments.project as NSString).appendingPathComponent("project.pbxproj") )
+            let projectpath = (arguments.project as NSString).appendingPathComponent("project.pbxproj")
+            projectfile = try fileManager.read(path: projectpath )
             
             guard let projectfile = projectfile else { throw FileError.failedtoread }
             let root = try Parser().start(string: projectfile)
@@ -89,7 +89,7 @@ internal struct Core {
                     filereference.fileEncoding = "4"
                     filereference.lastKnownFileType = "sourcecode.swift"
                     filereference.path = filename
-                    filereference.sourceTree = "<group>";
+                    filereference.sourceTree = "\"<group>\"";
                     
                     var file = try buildFiles.new(generator: PBXUUIDGenerator.shared)
                     file.fileRef = filereference.uuid
@@ -111,6 +111,7 @@ internal struct Core {
             
             let originalString = projectfile
             let PBXGroupModified = try group.generateProjectWithCurrent(string: originalString, newline: true)
+            try File.write(path: projectpath, contents: PBXGroupModified)
             print( "---------------------------------------------------------------")
             print( PBXGroupModified )
             print( "---------------------------------------------------------------")
@@ -124,6 +125,7 @@ internal struct Core {
             print( PBXBuildFilesModified )
             print( "---------------------------------------------------------------")
             let PBXBuildFileReferenceModified = try buildFileReferences.generateProjectWithCurrent(string: PBXBuildFilesModified, newline: false)
+//            try File.write(path: projectpath, contents: PBXBuildFileReferenceModified)
             print( "---------------------------------------------------------------")
             print( "---------------------------------------------------------------")
             print( "---------------------------------------------------------------")

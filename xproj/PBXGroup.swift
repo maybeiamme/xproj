@@ -20,6 +20,9 @@ internal struct PBXGroup: AutoEquatable, PBXType {
         self.children = data["children"] as? Array<String>
         self.path = data["path"] as? String
         self.sourceTree = data["sourceTree"] as? String
+        if self.sourceTree == "<group>" {
+            self.sourceTree = "\"<group>\""
+        }
         self.name = data["name"] as? String
     }
     

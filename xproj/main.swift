@@ -51,13 +51,14 @@ struct main {
     init(args:Array<String>) {
         do {
             let arguments = try Arguments(args: args)
-            let core = Core(argument: arguments)
-            core.
+            var core = Core(argument: arguments)
+            core.fileManager = File.self
+            core.processArgument()
         } catch {
-            
+            print( "Error : [\(error)]")
         }
         
     }
 }
-
+print( CommandLine.arguments )
 let _ = main( args: CommandLine.arguments )

@@ -18,7 +18,7 @@ protocol ArgumentsProtocol: AutoMockable {
     var project: String { get }
 }
 
-struct Arguments {
+struct Arguments: ArgumentsProtocol {
     var target: String {
         return values[ArgumentOption.target] as! String
     }
