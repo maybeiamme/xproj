@@ -49,7 +49,14 @@ and add SOURCEUUID to
 
 struct main {
     init(args:Array<String>) {
-
+        do {
+            let arguments = try Arguments(args: args)
+            let core = Core(argument: arguments)
+            core.
+        } catch {
+            
+        }
+        
     }
 }
 

@@ -124,7 +124,7 @@ extension Container where T == PBXGroup {
             return returnValue
         }
         
-        var stack = reversedPathArray.filter{ $0 != "" }
+        var stack = reversedPathArray.filter{ $0 != "" && $0 != "/" }
         guard let path = stack.popLast(),
             var parentGroup = groupByHashValue(hashValue: parent)
             else { throw ArgumentError.wronggroup }
