@@ -38,8 +38,7 @@ internal struct Core {
             guard let mainGroup = project.items[rootObject]?.mainGroup else { throw FileError.failedtoread }
             var group = try Container<PBXGroup>(data: collection)
             
-            PBXObject.shared.generator = UUIDGenerator.self
-            PBXObject.shared.set(collection: collection)
+            PBXUUIDGenerator.shared.set(collection: collection)
             
             if arguments.recursive == true {
                 for directory in arguments.files {
@@ -67,7 +66,7 @@ internal struct Core {
                     try addableGroups
                         .map{ $0.components(separatedBy: "/").reversed() as Array<String> }
                         .forEach{ value in
-                            let _ = try group.findGroupByPath(parent: mainGroup, reversedPathArray: value, generateGroupIfNeeded: true, uuidGenerator: PBXObject.shared)
+                            let _ = try group.findGroupByPath(parent: mainGroup, reversedPathArray: value, generateGroupIfNeeded: true, uuidGenerator: PBXUUIDGenerator.shared)
                     }
                 } catch {
                     print( "error parser : [\(error)]")
@@ -86,19 +85,19 @@ internal struct Core {
                     
                     guard let filename = pathComponents.last else { throw ArgumentError.wrongargument }
                     
-                    var filereference = try buildFileReferences.new(generator: PBXObject.shared)
+                    var filereference = try buildFileReferences.new(generator: PBXUUIDGenerator.shared)
                     filereference.fileEncoding = "4"
                     filereference.lastKnownFileType = "sourcecode.swift"
                     filereference.path = filename
                     filereference.sourceTree = "<group>";
                     
-                    var file = try buildFiles.new(generator: PBXObject.shared)
+                    var file = try buildFiles.new(generator: PBXUUIDGenerator.shared)
                     file.fileRef = filereference.uuid
                     
                     var foundGroup = try group.findGroupByPath(parent: mainGroup,
-                                                      reversedPathArray: Array(pathComponents.dropLast()).reversed() as Array<String>,
-                                                      generateGroupIfNeeded: false,
-                                                      uuidGenerator: PBXObject.shared)
+                                                               reversedPathArray: Array(pathComponents.dropLast()).reversed() as Array<String>,
+                                                               generateGroupIfNeeded: false,
+                                                               uuidGenerator: PBXUUIDGenerator.shared)
                     foundGroup.children?.append(filereference.uuid)
                     try group.modify(new: foundGroup)
                     
@@ -112,21 +111,28 @@ internal struct Core {
             
             let originalString = projectfile
             let PBXGroupModified = try group.generateProjectWithCurrent(string: originalString, newline: true)
-            print( groupsMustBeAdded )
-            print( filesMustBeAdded )
-            print( group.items )
+            print( "---------------------------------------------------------------")
+            print( PBXGroupModified )
+            print( "---------------------------------------------------------------")
             let PBXSourceContainerModified = try sourceContainter.generateProjectWithCurrent(string: PBXGroupModified, newline: true)
+            print( "---------------------------------------------------------------")
+            print( PBXSourceContainerModified )
+            print( "---------------------------------------------------------------")
             let PBXBuildFilesModified = try buildFiles.generateProjectWithCurrent(string: PBXSourceContainerModified, newline: true)
-            let PBXBuildFileReferenceModified = try buildFileReferences.generateProjectWithCurrent(string: PBXBuildFilesModified, newline: true)
-//            print( "---------------------------------------------------------------")
-//            print( "---------------------------------------------------------------")
-//            print( "---------------------------------------------------------------")
-//            print( "---------------------------------------------------------------")
-//            print( PBXBuildFileReferenceModified )
-//            print( "---------------------------------------------------------------")
-//            print( "---------------------------------------------------------------")
-//            print( "---------------------------------------------------------------")
-//            print( "---------------------------------------------------------------")
+            
+            print( "---------------------------------------------------------------")
+            print( PBXBuildFilesModified )
+            print( "---------------------------------------------------------------")
+            let PBXBuildFileReferenceModified = try buildFileReferences.generateProjectWithCurrent(string: PBXBuildFilesModified, newline: false)
+            print( "---------------------------------------------------------------")
+            print( "---------------------------------------------------------------")
+            print( "---------------------------------------------------------------")
+            print( "---------------------------------------------------------------")
+            print( PBXBuildFileReferenceModified )
+            print( "---------------------------------------------------------------")
+            print( "---------------------------------------------------------------")
+            print( "---------------------------------------------------------------")
+            print( "---------------------------------------------------------------")
             
         } catch {
             Errors.handle(error: error)

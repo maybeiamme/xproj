@@ -60,7 +60,7 @@ public struct Errors {
             print( "    \u{001B}[0;33m" +  "maybe colored?" )
             print( "    \u{001B}[0;32m" +  "maybe colored?" )
         default:
-            print( "What did you do...?" )
+            print( error )
         }
     }
 }

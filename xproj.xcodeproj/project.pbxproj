@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		1F00FCF91F273E7F00BB50C0 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */; };
 		1F00FCFD1F2740B700BB50C0 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */; };
-		1F195FDA1F2B20250006B6A2 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F195FD91F2B20250006B6A2 /* PBXObject.swift */; };
-		1F195FDB1F2B2E730006B6A2 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F195FD91F2B20250006B6A2 /* PBXObject.swift */; };
-		1F195FDD1F2B2E8A0006B6A2 /* PBXObjectSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F195FDC1F2B2E8A0006B6A2 /* PBXObjectSpec.swift */; };
+		1F195FDA1F2B20250006B6A2 /* PBXUUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F195FD91F2B20250006B6A2 /* PBXUUIDGenerator.swift */; };
+		1F195FDB1F2B2E730006B6A2 /* PBXUUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F195FD91F2B20250006B6A2 /* PBXUUIDGenerator.swift */; };
+		1F195FDD1F2B2E8A0006B6A2 /* PBXUUIDGeneratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F195FDC1F2B2E8A0006B6A2 /* PBXUUIDGeneratorSpec.swift */; };
 		1F1EDE921F2EE0F500D67087 /* ArgumentsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1EDE911F2EE0F500D67087 /* ArgumentsSpec.swift */; };
 		1F1EDE941F2EE2B800D67087 /* Arguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1EDE931F2EE2B800D67087 /* Arguments.swift */; };
 		1F1EDE951F2EE2CC00D67087 /* Arguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1EDE931F2EE2B800D67087 /* Arguments.swift */; };
@@ -70,8 +70,8 @@
 /* Begin PBXFileReference section */
 		0CD6B21786B9AC434CF38F60 /* libPods-xproj.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xproj.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F00FCF81F273E7F00BB50C0 /* PBXBuildFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PBXBuildFile.swift; path = ../PBXBuildFile.swift; sourceTree = "<group>"; };
-		1F195FD91F2B20250006B6A2 /* PBXObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXObject.swift; sourceTree = "<group>"; };
-		1F195FDC1F2B2E8A0006B6A2 /* PBXObjectSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXObjectSpec.swift; sourceTree = "<group>"; };
+		1F195FD91F2B20250006B6A2 /* PBXUUIDGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXUUIDGenerator.swift; sourceTree = "<group>"; };
+		1F195FDC1F2B2E8A0006B6A2 /* PBXUUIDGeneratorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXUUIDGeneratorSpec.swift; sourceTree = "<group>"; };
 		1F1EDE911F2EE0F500D67087 /* ArgumentsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsSpec.swift; sourceTree = "<group>"; };
 		1F1EDE931F2EE2B800D67087 /* Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arguments.swift; sourceTree = "<group>"; };
 		1F1EDE961F2EEFD300D67087 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 				1FF02CA51F28850E0066405A /* PBXParser.swift */,
 				1F9F83951F29FD0600FF642C /* Entity.swift */,
 				1F9F83971F29FD4500FF642C /* PBXContainer.swift */,
-				1F195FD91F2B20250006B6A2 /* PBXObject.swift */,
+				1F195FD91F2B20250006B6A2 /* PBXUUIDGenerator.swift */,
 				1F1EDE931F2EE2B800D67087 /* Arguments.swift */,
 				1F1EDE961F2EEFD300D67087 /* File.swift */,
 				1F1EDE991F2EF27400D67087 /* Errors.swift */,
@@ -175,7 +175,7 @@
 				1FF02CB31F289DC30066405A /* PBXGroupSpec.swift */,
 				1F9F83911F29FB1500FF642C /* PBXNativeTargetSpec.swift */,
 				1F515E7E1F2AD9B00050174B /* ContainerSpec.swift */,
-				1F195FDC1F2B2E8A0006B6A2 /* PBXObjectSpec.swift */,
+				1F195FDC1F2B2E8A0006B6A2 /* PBXUUIDGeneratorSpec.swift */,
 				1F1EDE911F2EE0F500D67087 /* ArgumentsSpec.swift */,
 				1F7622071F303A5D00561276 /* CoreSpec.swift */,
 				4189D6CA1F3754CF00EF145A /* PBXSourceBuildPhaseSpec.swift */,
@@ -359,7 +359,7 @@
 			files = (
 				1F9F83981F29FD4500FF642C /* PBXContainer.swift in Sources */,
 				1F1EDE971F2EEFD300D67087 /* File.swift in Sources */,
-				1F195FDA1F2B20250006B6A2 /* PBXObject.swift in Sources */,
+				1F195FDA1F2B20250006B6A2 /* PBXUUIDGenerator.swift in Sources */,
 				1FF02CA61F28850E0066405A /* PBXParser.swift in Sources */,
 				4189D6C51F37513F00EF145A /* PBXSourcesBuildPhase.swift in Sources */,
 				1FFB5E931F172A91002F4A12 /* main.swift in Sources */,
@@ -393,7 +393,7 @@
 				1F515E7F1F2AD9B00050174B /* ContainerSpec.swift in Sources */,
 				1F9F83921F29FB1500FF642C /* PBXNativeTargetSpec.swift in Sources */,
 				4189D6C91F37534F00EF145A /* PBXProject.swift in Sources */,
-				1F195FDD1F2B2E8A0006B6A2 /* PBXObjectSpec.swift in Sources */,
+				1F195FDD1F2B2E8A0006B6A2 /* PBXUUIDGeneratorSpec.swift in Sources */,
 				4189D6C61F37514100EF145A /* PBXSourcesBuildPhase.swift in Sources */,
 				1FFB5EDD1F175C17002F4A12 /* main.swift in Sources */,
 				1FF02CAD1F2899220066405A /* SourceTemplates.swift in Sources */,
@@ -405,7 +405,7 @@
 				1F9F83991F29FD4A00FF642C /* Entity.swift in Sources */,
 				1FBDA98F1F274CD200F4038B /* PBXBuildFileSpec.swift in Sources */,
 				1F00FCFD1F2740B700BB50C0 /* PBXBuildFile.swift in Sources */,
-				1F195FDB1F2B2E730006B6A2 /* PBXObject.swift in Sources */,
+				1F195FDB1F2B2E730006B6A2 /* PBXUUIDGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

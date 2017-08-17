@@ -114,6 +114,11 @@ internal struct Container<T: PBXType> {
 extension Container where T == PBXGroup {
     
     internal mutating func findGroupByPath( parent: String, reversedPathArray: Array<String>, generateGroupIfNeeded: Bool, uuidGenerator: UUIDWithoutDuplicateProtocol ) throws -> PBXGroup {
+        
+        print( "-------------------findGroupByPath--------------------")
+        print( "parent : [\(parent)]")
+        print( "reversedPathArray : [\(reversedPathArray)]")
+        print( "-------------------findGroupByPath--------------------")
         if reversedPathArray.isEmpty == true {
             guard let returnValue = groupByHashValue(hashValue: parent) else { throw ArgumentError.wronggroup }
             return returnValue

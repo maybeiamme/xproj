@@ -12,12 +12,11 @@ internal struct PBXBuildFile: AutoEquatable, PBXType {
     internal static let identity = "PBXBuildFile"
     
     init( uuid: String, data: Dictionary<String,Any> ) throws {
-        guard let fileRef = data["fileRef"] as? String, let isa = data["isa"] as? String else {
+        guard let isa = data["isa"] as? String else {
             throw ParseError.brokenSyntax
         }
         self.uuid = uuid
         self.isa = isa
-        self.fileRef = fileRef
     }
     
     let uuid: String
