@@ -60,5 +60,5 @@ struct main {
         
     }
 }
-print( CommandLine.arguments )
+
 let _ = main( args: CommandLine.arguments )

@@ -28,7 +28,6 @@ public struct File: FileProtocol {
     }
     
     public static func read( path: String ) throws -> String {
-        print( "read file : [\(path)]")
         if File.exists(path: path) == false { throw FileError.notexist }
         do {
             return try String(contentsOfFile: path, encoding: .utf8)
@@ -38,7 +37,6 @@ public struct File: FileProtocol {
     }
     
     public static func write( path: String, contents: String ) throws {
-        print( "write file : [\(contents)]")
         if File.exists(path: path) == false { throw FileError.notexist }
         do {
             try contents.write(toFile: path, atomically: true, encoding: .utf8)

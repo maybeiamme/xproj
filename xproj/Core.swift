@@ -77,7 +77,9 @@ internal struct Core {
             let targetContainer = try Container<PBXNativeTarget>(data: collection)
             guard let buildPhases = targetContainer.targetByName(name: arguments.target)?.buildPhases else { throw ArgumentError.wrongargument }
             var sourceContainter = try Container<PBXSourcesBuildPhase>(data: collection)
+            
             guard var source = sourceContainter.sourceFromBuildPhases(uuids: buildPhases) else { throw ArgumentError.wrongargument }
+            
             var buildFiles = try Container<PBXBuildFile>(data: collection)
             var buildFileReferences = try Container<PBXFileReference>(data: collection)
             if let filesToAdd = filesMustBeAdded {
@@ -111,30 +113,10 @@ internal struct Core {
             
             let originalString = projectfile
             let PBXGroupModified = try group.generateProjectWithCurrent(string: originalString, newline: true)
-            try File.write(path: projectpath, contents: PBXGroupModified)
-            print( "---------------------------------------------------------------")
-            print( PBXGroupModified )
-            print( "---------------------------------------------------------------")
             let PBXSourceContainerModified = try sourceContainter.generateProjectWithCurrent(string: PBXGroupModified, newline: true)
-            print( "---------------------------------------------------------------")
-            print( PBXSourceContainerModified )
-            print( "---------------------------------------------------------------")
             let PBXBuildFilesModified = try buildFiles.generateProjectWithCurrent(string: PBXSourceContainerModified, newline: true)
-            
-            print( "---------------------------------------------------------------")
-            print( PBXBuildFilesModified )
-            print( "---------------------------------------------------------------")
             let PBXBuildFileReferenceModified = try buildFileReferences.generateProjectWithCurrent(string: PBXBuildFilesModified, newline: false)
-//            try File.write(path: projectpath, contents: PBXBuildFileReferenceModified)
-            print( "---------------------------------------------------------------")
-            print( "---------------------------------------------------------------")
-            print( "---------------------------------------------------------------")
-            print( "---------------------------------------------------------------")
-            print( PBXBuildFileReferenceModified )
-            print( "---------------------------------------------------------------")
-            print( "---------------------------------------------------------------")
-            print( "---------------------------------------------------------------")
-            print( "---------------------------------------------------------------")
+            try File.write(path: projectpath, contents: PBXBuildFileReferenceModified)
             
         } catch {
             Errors.handle(error: error)

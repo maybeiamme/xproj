@@ -50,6 +50,10 @@ internal struct Container<T: PBXType> {
         rawValue = PBXCollection(array: data.array.filter{ dictionary.keys.contains($0.key) == true }, dictionary: dictionary)
     }
     
+    internal func printPBXCollection() {
+        print(rawValue )
+    }
+    
     internal func toString( newline: Bool ) -> String {
         var strings: Array<String> = Array<String>()
         for keyvalue in rawValue.array {
@@ -62,7 +66,6 @@ internal struct Container<T: PBXType> {
     internal func new( generator: UUIDWithoutDuplicateProtocol ) throws -> T {
         guard let hashValue = generator.generateHashValue() else { throw PBXError.hashgeneration }
         let new = try T(uuid: hashValue, data: ["isa": T.identity])
-        print( "all new identity : [\(T.identity)]")
         return new
     }
     
@@ -116,10 +119,6 @@ extension Container where T == PBXGroup {
     
     internal mutating func findGroupByPath( parent: String, reversedPathArray: Array<String>, generateGroupIfNeeded: Bool, uuidGenerator: UUIDWithoutDuplicateProtocol ) throws -> PBXGroup {
         
-        print( "-------------------findGroupByPath--------------------")
-        print( "parent : [\(parent)]")
-        print( "reversedPathArray : [\(reversedPathArray)]")
-        print( "-------------------findGroupByPath--------------------")
         if reversedPathArray.isEmpty == true {
             guard let returnValue = groupByHashValue(hashValue: parent) else { throw ArgumentError.wronggroup }
             return returnValue
@@ -135,6 +134,7 @@ extension Container where T == PBXGroup {
             var newGroup = try self.new( generator: uuidGenerator )
             newGroup.path = path
             newGroup.children = Array<String>()
+            newGroup.sourceTree = "<group>"
             try add(new: newGroup)
             parentGroup.children = parentGroup.children == nil ? [newGroup.uuid] : parentGroup.children! + [newGroup.uuid]
             try modify(new: parentGroup)

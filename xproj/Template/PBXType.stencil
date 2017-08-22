@@ -7,7 +7,7 @@ extension {{ type.name }} {
         var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
         var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
 
-        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: {{ type.name }}.identity)))
         {% for variable in type.allVariables %}
         {% if not variable.isStatic and variable.isOptional %}
         if let {{ variable.name }} = {{ variable.name }} {

@@ -22,8 +22,26 @@ struct KEYVALUE: NODE {
         guard let key = key.content as? String, let value = value.content else {
             throw ParseError.expectedNODE
         }
-        self.key = key
-        self.value = value
+        
+        if let v = value as? String {
+            self.key = key
+            if key == "sourceTree" && v == "<group>" {
+                self.value = "\"" + v + "\""
+            } else if key == "productType" {
+                self.value = "\"" + v + "\""
+            } else if key == "compatibilityVersion" {
+                self.value = "\"" + v + "\""
+            } else if key == "projectDirPath" {
+                self.value = "\"" + v + "\""
+            } else if key == "projectRooot" {
+                self.value = "\"" + v + "\""
+            } else {
+                self.value = value
+            }
+        } else {
+            self.key = key
+            self.value = value
+        }
     }
 }
 

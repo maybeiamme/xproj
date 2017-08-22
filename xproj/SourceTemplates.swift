@@ -228,7 +228,7 @@ extension PBXBuildFile {
         var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
         var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
 
-        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXBuildFile.identity)))
         if let fileRef = fileRef {
             allvalues.append( try KEYVALUE(key: STRING(content: "fileRef"), value: STRING(content: fileRef)) )
             dictionary["fileRef"] = fileRef
@@ -243,7 +243,7 @@ extension PBXFileReference {
         var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
         var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
 
-        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXFileReference.identity)))
         if let fileEncoding = fileEncoding {
             allvalues.append( try KEYVALUE(key: STRING(content: "fileEncoding"), value: STRING(content: fileEncoding)) )
             dictionary["fileEncoding"] = fileEncoding
@@ -309,7 +309,7 @@ extension PBXNativeTarget {
         var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
         var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
 
-        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXNativeTarget.identity)))
         if let buildConfigurationList = buildConfigurationList {
             allvalues.append( try KEYVALUE(key: STRING(content: "buildConfigurationList"), value: STRING(content: buildConfigurationList)) )
             dictionary["buildConfigurationList"] = buildConfigurationList
@@ -352,7 +352,7 @@ extension PBXProject {
         var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
         var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
 
-        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXProject.identity)))
         if let mainGroup = mainGroup {
             allvalues.append( try KEYVALUE(key: STRING(content: "mainGroup"), value: STRING(content: mainGroup)) )
             dictionary["mainGroup"] = mainGroup
@@ -367,7 +367,7 @@ extension PBXSourcesBuildPhase {
         var allvalues: Array<KEYVALUE> = Array<KEYVALUE>()
         var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
 
-        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXGroup.identity)))
+        allvalues.append( try KEYVALUE(key: STRING(content: "isa"), value: STRING(content: PBXSourcesBuildPhase.identity)))
         if let buildActionMask = buildActionMask {
             allvalues.append( try KEYVALUE(key: STRING(content: "buildActionMask"), value: STRING(content: buildActionMask)) )
             dictionary["buildActionMask"] = buildActionMask
