@@ -125,7 +125,7 @@ internal struct Parser: PBXParserProtocol {
             let regex = try NSRegularExpression(pattern: "\\/\\*([^*]|[\\r\\n]|(\\*+([^*/]|[\\r\\n])))*\\*+\\/", options: NSRegularExpression.Options.caseInsensitive)
             return regex.stringByReplacingMatches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count), withTemplate: "")
         } catch {
-            print( error )
+            Errors.handle(error: error)
             return nil
         }
     }
@@ -135,7 +135,7 @@ internal struct Parser: PBXParserProtocol {
             let regex = try NSRegularExpression(pattern: "\\/\\/.*", options: NSRegularExpression.Options.caseInsensitive)
             return regex.stringByReplacingMatches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count), withTemplate: "")
         } catch {
-            print( error )
+            Errors.handle(error: error)
             return nil
         }
     }

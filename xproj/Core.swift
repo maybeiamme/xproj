@@ -69,7 +69,7 @@ internal struct Core {
                             let _ = try group.findGroupByPath(parent: mainGroup, reversedPathArray: value, generateGroupIfNeeded: true, uuidGenerator: PBXUUIDGenerator.shared)
                     }
                 } catch {
-                    print( "error parser : [\(error)]")
+                    Errors.handle(error: error)
                 }
                 
             }
