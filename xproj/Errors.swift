@@ -38,7 +38,19 @@ public enum FatalError: Error {
     case notgonnabehappen
 }
 
+public enum CustomError: Error {
+    case error( message: String )
+    
+    var description: String {
+        switch self {
+        case let .error( message ):
+            return message
+        }
+    }
+}
+
 public struct Errors {
+    
     static func handle( error: Error ) {
         switch error {
         case ArgumentError.emptydestination:

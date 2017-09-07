@@ -14,6 +14,7 @@ public protocol FileProtocol: AutoMockable {
     static func read( path: String ) throws -> String
     static func write( path: String, contents: String ) throws
     static func allContents( at path: String ) throws -> Array<String>
+    static func backup( at path: String, to: String ) throws
 }
 
 public struct File: FileProtocol {
@@ -56,6 +57,9 @@ public struct File: FileProtocol {
     
     public static func backup( at path: String, to: String ) throws {
         do {
+            if FileManager.default.fileExists(atPath: to) == true {
+                try FileManager.default.removeItem(atPath: to)
+            }
             try FileManager.default.copyItem(atPath: path, toPath: to)
         } catch {
             throw FileError.failedtoread

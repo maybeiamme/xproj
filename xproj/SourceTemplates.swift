@@ -215,6 +215,12 @@ class FileProtocolMock: FileProtocol {
 
         return allContentsReturnValue!
     }
+    //MARK: - backup
+
+
+    static func backup( at path: String, to: String ) {
+
+    }
 
 
 }

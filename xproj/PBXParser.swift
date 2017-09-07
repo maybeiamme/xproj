@@ -84,7 +84,10 @@ internal struct Parser: PBXParserProtocol {
                     var dictionary: Dictionary<String,Any> = Dictionary<String,Any>()
                     var array: Array<KEYVALUE> = Array<KEYVALUE>()
                     while (stack.last as? Character) != "{" {
-                        guard let keyvalue = stack.popLast() as? KEYVALUE else { throw ParseError.expectedKEYVALUE }
+                        guard let keyvalue = stack.popLast() as? KEYVALUE else {
+                            print( "current stack is : [\(stack)]")
+                            throw ParseError.expectedKEYVALUE
+                        }
                         dictionary[keyvalue.key] = keyvalue.value
                         array.append(keyvalue)
                     }
@@ -116,7 +119,23 @@ internal struct Parser: PBXParserProtocol {
     internal static func clear( string: String ) -> String {
         guard let annotationRemoved = Parser.removeAnnotation(string: string) else { return "" }
         guard let removeCommentedOut = Parser.removeCommentedOut(string: annotationRemoved) else { return "" }
-        let cleanString = String( removeCommentedOut.characters.filter{ $0 != " " && $0 != "\t" && $0 != "\n" } )
+        var betweenDoublequat = false
+        var cleanString = ""
+        for c in removeCommentedOut.characters {
+            if c == "\"" {
+                betweenDoublequat = !betweenDoublequat
+            }
+            if betweenDoublequat == true {
+                cleanString += String(c)
+            } else {
+                if c != " " && c != "\t" && c != "\n" {
+                    
+                } else {
+                    cleanString += String(c)
+                }
+            }
+        }
+//        let cleanString = String( removeCommentedOut.characters.filter{ $0 != " " && $0 != "\t" && $0 != "\n" } )
         return cleanString
     }
     

@@ -26,9 +26,21 @@ internal struct Core {
             
             let arguments = argument
             let projectpath = (arguments.project as NSString).appendingPathComponent("project.pbxproj")
-            projectfile = try fileManager.read(path: projectpath )
+            let backupPath = (arguments.project as NSString).appendingPathComponent("project.pbxprojbackup")
+            do {
+                projectfile = try fileManager.read(path: projectpath )
+            } catch {
+                throw CustomError.error(message: "Unable to locate and load projectfile")
+            }
+            do {
+                try fileManager.backup(at: projectpath, to: backupPath)
+            } catch {
+                throw CustomError.error(message: "Unable to generate backup. Possibly duplication.")
+            }
+
             
             guard let projectfile = projectfile else { throw FileError.failedtoread }
+            
             let root = try Parser().start(string: projectfile)
             guard let collection = root.dictionary["objects"] as? PBXCollection else { throw FileError.failedtoread }
             guard let rootObject = root.dictionary["rootObject"] as? String else {
