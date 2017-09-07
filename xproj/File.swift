@@ -53,4 +53,13 @@ public struct File: FileProtocol {
             throw FileError.failedtoread
         }
     }
+    
+    public static func backup( at path: String, to: String ) throws {
+        do {
+            try FileManager.default.copyItem(atPath: path, toPath: to)
+        } catch {
+            throw FileError.failedtoread
+        }
+        
+    }
 }
