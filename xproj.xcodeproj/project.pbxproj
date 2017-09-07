@@ -52,20 +52,7 @@
 		4189D6CB1F3754CF00EF145A /* PBXSourceBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4189D6CA1F3754CF00EF145A /* PBXSourceBuildPhaseSpec.swift */; };
 		41EF80961F17F92C004CD3CE /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA61F17324E002F4A12 /* Nimble.framework */; };
 		41EF80971F17F92C004CD3CE /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFB5EA71F17324E002F4A12 /* Quick.framework */; };
-		9C1E7C1F0DDADE8CA81E9EE2 /* libPods-xproj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CD6B21786B9AC434CF38F60 /* libPods-xproj.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		1FFB5E8D1F172A91002F4A12 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0CD6B21786B9AC434CF38F60 /* libPods-xproj.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xproj.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,14 +93,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1FFB5E8C1F172A91002F4A12 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9C1E7C1F0DDADE8CA81E9EE2 /* libPods-xproj.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1FFB5E9A1F172B62002F4A12 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -222,11 +201,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FFB5E961F172A91002F4A12 /* Build configuration list for PBXNativeTarget "xproj" */;
 			buildPhases = (
-				B8D284FE32F27D0D1F8F0FF5 /* [CP] Check Pods Manifest.lock */,
 				1FFB5E8B1F172A91002F4A12 /* Sources */,
-				1FFB5E8C1F172A91002F4A12 /* Frameworks */,
-				1FFB5E8D1F172A91002F4A12 /* CopyFiles */,
-				B0FC3D17DE4047DEF5E35B06 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -319,36 +294,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "carthage copy-frameworks";
-		};
-		B0FC3D17DE4047DEF5E35B06 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-xproj/Pods-xproj-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B8D284FE32F27D0D1F8F0FF5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
