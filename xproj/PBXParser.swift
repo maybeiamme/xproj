@@ -21,8 +21,28 @@ internal struct PBXCollection: NODE {
 
 internal struct Parser: PBXParserProtocol {
     
+    internal func parseAllHashValues( string: String ) throws -> Dictionary<String,Bool> {
+        let regex = try NSRegularExpression(pattern: "[A-Z|0-9]{24}", options: NSRegularExpression.Options.caseInsensitive)
+        let searchResult = regex.matches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count))
+        let hashes = searchResult.map{ (string as NSString).substring(with: $0.range) }.reduce(Dictionary<String,Bool>()) { current, next in
+            var mutableCurrent = current
+            mutableCurrent[next] = true
+            return mutableCurrent
+        }
+        return hashes
+    }
+    
+    internal func parseRootObjectUUID( string: String ) throws -> String {
+        let regex = try NSRegularExpression(pattern: "rootObject = .*;", options: NSRegularExpression.Options.caseInsensitive)
+        let matches = regex.matches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count))
+        guard let first = matches.first else { throw ParseError.brokenSyntax }
+        let whole = (string as NSString).substring(with: first.range)
+        guard let uuid = Parser.removeAnnotation(string: whole)?.replacingOccurrences(of: "rootObject = ", with: "").replacingOccurrences(of: " ", with: "").replacingOccurrences(of: ";", with: "") else { throw ParseError.brokenSyntax }
+        return uuid
+    }
+    
     internal func start( string: String ) throws -> PBXCollection {
-        let cleaned = Parser.clear(string: string)
+        let cleaned = "{" + Parser.clear(string: string) + "}"
         var stack = Array<NODE>()
         var doublequat = false
         
@@ -49,7 +69,7 @@ internal struct Parser: PBXParserProtocol {
                 }
                 continue
             }
-
+            
             if s.group == .unknown { throw ParseError.unknownNode }
             
             if s.group == .delimiter {
@@ -85,7 +105,6 @@ internal struct Parser: PBXParserProtocol {
                     var array: Array<KEYVALUE> = Array<KEYVALUE>()
                     while (stack.last as? Character) != "{" {
                         guard let keyvalue = stack.popLast() as? KEYVALUE else {
-                            print( "current stack is : [\(stack)]")
                             throw ParseError.expectedKEYVALUE
                         }
                         dictionary[keyvalue.key] = keyvalue.value
@@ -111,7 +130,6 @@ internal struct Parser: PBXParserProtocol {
                 }
             }
         }
-        
         guard let last = stack.last as? PBXCollection else { throw ParseError.brokenSyntax }
         return last
     }
@@ -124,18 +142,19 @@ internal struct Parser: PBXParserProtocol {
         for c in removeCommentedOut.characters {
             if c == "\"" {
                 betweenDoublequat = !betweenDoublequat
+                cleanString += String(c)
+                continue
             }
             if betweenDoublequat == true {
                 cleanString += String(c)
             } else {
-                if c != " " && c != "\t" && c != "\n" {
+                if c == " " || c == "\t" || c == "\n" {
                     
                 } else {
                     cleanString += String(c)
                 }
             }
         }
-//        let cleanString = String( removeCommentedOut.characters.filter{ $0 != " " && $0 != "\t" && $0 != "\n" } )
         return cleanString
     }
     

@@ -11,6 +11,10 @@ import Cocoa
 internal struct PBXUUIDGenerator: UUIDWithoutDuplicateProtocol {
     internal static var shared = PBXUUIDGenerator()
     
+    internal mutating func set( collection: Dictionary<String,Bool> ) {
+        hashValues = collection
+    }
+    
     internal mutating func set( collection: PBXCollection ) {
         self.collecion = collection
         

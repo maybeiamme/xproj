@@ -89,6 +89,13 @@ internal struct Container<T: PBXType> {
         return regex.stringByReplacingMatches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count), withTemplate: template)
     }
     
+    internal static func extractTargetFromCurrent( string: String ) throws -> String {
+        let regex = try NSRegularExpression(pattern: "\\/\\* Begin \(T.identity) section \\*\\/[A-z|0-9|\\n|\\t| |\\/|\\*|.|=|{|}|(|)|;|\\\"|<|>|,|-|+|$|\\-|@]*\\/\\* End \(T.identity) section \\*\\/", options: NSRegularExpression.Options.caseInsensitive)
+        let matches = regex.matches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: string.characters.count))
+        guard let first = matches.first else { throw ParseError.brokenSyntax }
+        return (string as NSString).substring(with: first.range)
+    }
+    
     private func valueToString( value: Any, newline: Bool ) -> String {
         if let string = value as? String {
             return string
